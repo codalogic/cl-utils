@@ -1,0 +1,81 @@
+Tests run on Thu Jul 09 13:33:07 2015
+
+    ptr_vector - create, push_back [test-ptr-vector.cpp:42]
+    =======================================================
+    ok: pv.size() == 0
+    ok: pv.empty()
+    ok: pv.size() == 1
+    ok: ! pv.empty()
+    ok: pv[0] == "s0"
+    ok: pv.at(0) == "s0"
+    ok: pv.size() == 2
+    ok: ! pv.empty()
+    ok: pv[0] == "s0"
+    ok: pv.at(0) == "s0"
+    ok: pv[1] == "s1"
+    ok: pv.at(1) == "s1"
+    ok: pv.size() == 3
+    ok: ! pv.empty()
+    ok: pv[0] == "s0"
+    ok: pv.at(0) == "s0"
+    ok: pv[1] == "s1"
+    ok: pv.at(1) == "s1"
+    ok: pv[2] == "s2"
+    ok: pv.at(2) == "s2"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    ptr_vector - copy, assign, swap [test-ptr-vector.cpp:77]
+    ========================================================
+    ok: pv2.size() == 3
+    ok: ! pv2.empty()
+    ok: pv2[0] == "s0"
+    ok: pv2.at(0) == "s0"
+    ok: pv2[1] == "s1"
+    ok: pv2.at(1) == "s1"
+    ok: pv2[2] == "s2"
+    ok: pv2.at(2) == "s2"
+    ok: pv2[0] == pv[0]
+    ok: pv2[0] == "other s0"
+    ok: pv[0] == "s0"
+    ok: pv2[0] != pv[0]
+    ok: pv2[0] == pv[0]
+    ok: pv2[0] != pv[0]
+    ok: pv[1] == "c2s1"
+    ok: pv2[1] == "c1s1"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    ptr_vector - iterators [test-ptr-vector.cpp:116]
+    ================================================
+    ok: i != end
+    ok: *i == "s0"
+    ok: i->at(1) == '0'
+    ok: i != end
+    ok: *i == "s1"
+    ok: i->at(1) == '1'
+    ok: i != end
+    ok: *i == "s2"
+    ok: i->at(1) == '2'
+    ok: i == end
+    ok: i != end
+    ok: *i == "s0"
+    ok: i->at(1) == '0'
+    ok: i != end
+    ok: *i == "s1"
+    ok: i->at(1) == '1'
+    ok: i != end
+    ok: *i == "s2"
+    ok: i->at(1) == '2'
+    ok: i == end
+    ok: i != end
+    ok: *i == "s0"
+    ok: i->at(1) == '0'
+    ok: i != end
+    ok: *i == "s1"
+    ok: i->at(1) == '1'
+    ok: i != end
+    ok: *i == "s2"
+    ok: i->at(1) == '2'
+    ok: i == end
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+    ok: _CrtCheckMemory() != 0
+0 error(s), 0 todo(s), 70 test(s)

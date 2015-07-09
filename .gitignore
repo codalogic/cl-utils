@@ -1,0 +1,35 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Visual Studio bits (Added by PJC)
+*.pch
+*.suo
+*.obj
+*.ilk
+*.lib
+*.exe
+*.dep
+*.pdb
+*.ncb
+*.idb
+*.htm
+*.res
+*.manifest
+*.user
+
+# Linux bits
+*.swp
+
+# Project specific ignores
+cl-utils-test
+fix-eol.bat
