@@ -160,6 +160,11 @@ public:
     T & at( size_t i ) { return *container.at(i); }
     const T & operator [] ( size_t i ) const { return *(container[i]); }
     T & operator [] ( size_t i ) { return *(container[i]); }
+
+    const T & back() const { return *container.back(); }
+    T & back() { return *container.back(); }
+    const T & front() const { return *container.front(); }
+    T & front() { return *container.front(); }
 };
 
 }   // namespace clutils

@@ -175,3 +175,19 @@ TFEATURE( "ptr_vector - iterators" )
     TTEST( i == end );
     }
 }
+
+TFEATURE( "ptr_vector - back, front" )
+{
+    ptr_vector< std::string > pv;
+    pv.push_back( "s0" );
+    pv.push_back( "s1" );
+    pv.push_back( "s2" );
+
+    TTEST( pv.front() == "s0" );
+    TTEST( pv.back() == "s2" );
+
+    const ptr_vector< std::string > cpv( pv );
+
+    TTEST( cpv.front() == "s0" );
+    TTEST( cpv.back() == "s2" );
+}
