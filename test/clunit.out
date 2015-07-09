@@ -1,4 +1,4 @@
-Tests run on Thu Jul 09 15:12:32 2015
+Tests run on Thu Jul 09 17:35:41 2015
 
     ptr_vector - create, push_back [test-ptr-vector.cpp:42]
     =======================================================
@@ -85,5 +85,49 @@ Tests run on Thu Jul 09 15:12:32 2015
     ok: cpv.front() == "s0"
     ok: cpv.back() == "s2"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    iter_range [test-iter-range.cpp:43]
+    ===================================
+    ok: ir
+    ok: *ir == "0"
+    ok: ir->at(0) == '0'
+    ok: ir
+    ok: *ir == "1"
+    ok: ir->at(0) == '1'
+    ok: ir
+    ok: *ir == "2"
+    ok: ir->at(0) == '2'
+    ok: ! ir
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    const_iter_range [test-iter-range.cpp:67]
+    =========================================
+    ok: ir
+    ok: *ir == "0"
+    ok: ir->at(0) == '0'
+    ok: ir
+    ok: *ir == "1"
+    ok: ir->at(0) == '1'
+    ok: ir
+    ok: *ir == "2"
+    ok: ir->at(0) == '2'
+    ok: ! ir
+    ok: ir
+    ok: *ir == "0"
+    ok: ir->at(0) == '0'
+    ok: ir
+    ok: *ir == "1"
+    ok: ir->at(0) == '1'
+    ok: ir
+    ok: *ir == "2"
+    ok: ir->at(0) == '2'
+    ok: ! ir
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    iter_range example in loop [test-iter-range.cpp:118]
+    ====================================================
+    ok: total_string_length == 3
+    ok: total_string_length == 3
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 75 test(s)
+0 error(s), 0 todo(s), 110 test(s)
