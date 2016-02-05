@@ -31,7 +31,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------
 
-#include "cl-utils/iter-range.h"
+#include "cl-utils/iterator-range.h"
 
 #include "clunit.h"
 
@@ -40,7 +40,7 @@
 
 using namespace clutils;
 
-TFEATURE( "iter_range" )
+TFEATURE( "iterator_range" )
 {
     typedef std::vector< std::string > container_t;
     container_t v;
@@ -64,7 +64,7 @@ TFEATURE( "iter_range" )
     TTEST( ! ir );
 }
 
-TFEATURE( "const_iter_range" )
+TFEATURE( "const_iterator_range" )
 {
     {
     typedef std::vector< std::string > container_t;
@@ -115,7 +115,7 @@ TFEATURE( "const_iter_range" )
     }
 }
 
-TFEATURE( "iter_range example in loop" )
+TFEATURE( "iterator_range example in loop" )
 {
     typedef std::vector< std::string > container_t;
     container_t my_container;
@@ -123,7 +123,7 @@ TFEATURE( "iter_range example in loop" )
     my_container.push_back( "1" );
     my_container.push_back( "2" );
 
-    // With iter_range
+    // With iterator_range
     size_t total_string_length = 0;
     for( const_iterator_range< container_t > ir( my_container ); ir; ++ir )
         total_string_length += ir->size();

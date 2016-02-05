@@ -1,4 +1,4 @@
-Tests run on Fri Feb 05 13:42:57 2016
+Tests run on Fri Feb 05 14:41:36 2016
 
     ptr_vector - create, push_back [test-ptr-vector.cpp:42]
     =======================================================
@@ -86,8 +86,8 @@ Tests run on Fri Feb 05 13:42:57 2016
     ok: cpv.back() == "s2"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    iter_range [test-iter-range.cpp:43]
-    ===================================
+    iterator_range [test-iterator-range.cpp:43]
+    ===========================================
     ok: ir
     ok: *ir == "0"
     ok: ir->at(0) == '0'
@@ -100,8 +100,8 @@ Tests run on Fri Feb 05 13:42:57 2016
     ok: ! ir
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    const_iter_range [test-iter-range.cpp:67]
-    =========================================
+    const_iterator_range [test-iterator-range.cpp:67]
+    =================================================
     ok: ir
     ok: *ir == "0"
     ok: ir->at(0) == '0'
@@ -124,8 +124,8 @@ Tests run on Fri Feb 05 13:42:57 2016
     ok: ! ir
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    iter_range example in loop [test-iter-range.cpp:118]
-    ====================================================
+    iterator_range example in loop [test-iterator-range.cpp:118]
+    ============================================================
     ok: total_string_length == 3
     ok: total_string_length == 3
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
