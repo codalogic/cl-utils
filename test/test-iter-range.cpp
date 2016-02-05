@@ -48,7 +48,7 @@ TFEATURE( "iter_range" )
     v.push_back( "1" );
     v.push_back( "2" );
 
-    iter_range< container_t > ir( v );
+    iterator_range< container_t > ir( v );
     TTEST( ir );
     TTEST( *ir == "0" );
     TTEST( ir->at(0) == '0' );
@@ -73,7 +73,7 @@ TFEATURE( "const_iter_range" )
     v.push_back( "1" );
     v.push_back( "2" );
 
-    const_iter_range< container_t > ir( v );
+    const_iterator_range< container_t > ir( v );
     TTEST( ir );
     TTEST( *ir == "0" );
     TTEST( ir->at(0) == '0' );
@@ -98,7 +98,7 @@ TFEATURE( "const_iter_range" )
     vs.push_back( "2" );
     const container_t v( vs );
 
-    const_iter_range< container_t > ir( v );
+    const_iterator_range< container_t > ir( v );
     TTEST( ir );
     TTEST( *ir == "0" );
     TTEST( ir->at(0) == '0' );
@@ -125,7 +125,7 @@ TFEATURE( "iter_range example in loop" )
 
     // With iter_range
     size_t total_string_length = 0;
-    for( const_iter_range< container_t > ir( my_container ); ir; ++ir )
+    for( const_iterator_range< container_t > ir( my_container ); ir; ++ir )
         total_string_length += ir->size();
     TTEST( total_string_length == 3 );
 

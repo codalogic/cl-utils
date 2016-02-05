@@ -2,6 +2,7 @@ SRCFILES =
 
 TESTFILES = \
 	test/test-main.cpp \
+	test/test-iter-range.cpp \
 	test/test-ptr-vector.cpp
 
 CXXFLAGS = -I include

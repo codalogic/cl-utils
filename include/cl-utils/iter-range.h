@@ -37,41 +37,41 @@
 namespace clutils {
 
 template< typename Tcontainer >
-class iter_range
+class iterator_range
 {
 private:
     typename Tcontainer::iterator i;
     typename Tcontainer::iterator end;
 
 public:
-    iter_range( Tcontainer & r_container_in )
+    iterator_range( Tcontainer & r_container_in )
         :
         i( r_container_in.begin() ),
         end( r_container_in.end() )
     {}
     typename Tcontainer::iterator::reference operator * () const { return *i; }
     typename Tcontainer::iterator::pointer operator -> () const { return i.operator -> (); }
-    operator bool () { return i != end; }
+    operator bool () const { return i != end; }
     typename Tcontainer::iterator operator ++ () { return ++i; }
     typename Tcontainer::iterator operator ++ (int) { return i++; }
 };
 
 template< typename Tcontainer >
-class const_iter_range
+class const_iterator_range
 {
 private:
     typename Tcontainer::const_iterator i;
     typename Tcontainer::const_iterator end;
 
 public:
-    const_iter_range( const Tcontainer & r_container_in )
+    const_iterator_range( const Tcontainer & r_container_in )
         :
         i( r_container_in.begin() ),
         end( r_container_in.end() )
     {}
     typename Tcontainer::const_iterator::reference operator * () const { return *i; }
     typename Tcontainer::const_iterator::pointer operator -> () const { return i.operator -> (); }
-    operator bool () { return i != end; }
+    operator bool () const { return i != end; }
     typename Tcontainer::const_iterator operator ++ () { return ++i; }
     typename Tcontainer::const_iterator operator ++ (int) { return i++; }
 };
