@@ -15,3 +15,16 @@ using it over `vector<T*>` is that it will deep-copy, the iterators return
 container is destroyed.  The benefits over `deque<T>` are that you can
 `push_back()` an independently new-ed object, rather than having to do a copy
 into place operation.
+
+iterator_range
+--------------
+
+`iterator_range` and `const_iterator_range` allow code like:
+
+
+    ...
+
+    for( const_iterator_range< std::vector< std::string > > ir( my_container ); ir; ++ir )
+        total_string_length += ir->size();
+
+You can also use `*ir` as per normal iterators.
