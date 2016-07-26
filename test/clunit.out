@@ -1,4 +1,48 @@
-Tests run on Fri Feb 05 14:41:36 2016
+Tests run on Tue Jul 26 19:49:20 2016
+
+    iterator_range [test-iterator-range.cpp:43]
+    ===========================================
+    ok: ir
+    ok: *ir == "0"
+    ok: ir->at(0) == '0'
+    ok: ir
+    ok: *ir == "1"
+    ok: ir->at(0) == '1'
+    ok: ir
+    ok: *ir == "2"
+    ok: ir->at(0) == '2'
+    ok: ! ir
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    const_iterator_range [test-iterator-range.cpp:67]
+    =================================================
+    ok: ir
+    ok: *ir == "0"
+    ok: ir->at(0) == '0'
+    ok: ir
+    ok: *ir == "1"
+    ok: ir->at(0) == '1'
+    ok: ir
+    ok: *ir == "2"
+    ok: ir->at(0) == '2'
+    ok: ! ir
+    ok: ir
+    ok: *ir == "0"
+    ok: ir->at(0) == '0'
+    ok: ir
+    ok: *ir == "1"
+    ok: ir->at(0) == '1'
+    ok: ir
+    ok: *ir == "2"
+    ok: ir->at(0) == '2'
+    ok: ! ir
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    iterator_range example in loop [test-iterator-range.cpp:118]
+    ============================================================
+    ok: total_string_length == 3
+    ok: total_string_length == 3
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
     ptr_vector - create, push_back [test-ptr-vector.cpp:42]
     =======================================================
@@ -86,48 +130,83 @@ Tests run on Fri Feb 05 14:41:36 2016
     ok: cpv.back() == "s2"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    iterator_range [test-iterator-range.cpp:43]
-    ===========================================
-    ok: ir
-    ok: *ir == "0"
-    ok: ir->at(0) == '0'
-    ok: ir
-    ok: *ir == "1"
-    ok: ir->at(0) == '1'
-    ok: ir
-    ok: *ir == "2"
-    ok: ir->at(0) == '2'
-    ok: ! ir
+    str_args - String only [test-str-args.cpp:61]
+    =============================================
+    ok: str_args().expand( "in" ) == "in"
+    ok: expand( "in", 18 ) == "in"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    const_iterator_range [test-iterator-range.cpp:67]
-    =================================================
-    ok: ir
-    ok: *ir == "0"
-    ok: ir->at(0) == '0'
-    ok: ir
-    ok: *ir == "1"
-    ok: ir->at(0) == '1'
-    ok: ir
-    ok: *ir == "2"
-    ok: ir->at(0) == '2'
-    ok: ! ir
-    ok: ir
-    ok: *ir == "0"
-    ok: ir->at(0) == '0'
-    ok: ir
-    ok: *ir == "1"
-    ok: ir->at(0) == '1'
-    ok: ir
-    ok: *ir == "2"
-    ok: ir->at(0) == '2'
-    ok: ! ir
+    str_args - %% [test-str-args.cpp:67]
+    ====================================
+    ok: expand( "i%%n", 18 ) == "i%n"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    iterator_range example in loop [test-iterator-range.cpp:118]
-    ============================================================
-    ok: total_string_length == 3
-    ok: total_string_length == 3
+    str_args - Positional indexing [test-str-args.cpp:72]
+    =====================================================
+    ok: expand( "i%0n", 18 ) == "i18n"
+    ok: expand( "i%{0}n", 18 ) == "i18n"
+    ok: expand( "i%{0:eighteen}n", 18 ) == "i18n"
+    ok: expand( "%0in", 18 ) == "18in"
+    ok: expand( "%{0}in", 18 ) == "18in"
+    ok: expand( "%{0:eighteen}in", 18 ) == "18in"
+    ok: expand( "in%0", 18 ) == "in18"
+    ok: expand( "in%{0}", 18 ) == "in18"
+    ok: expand( "in%{0:eighteen}", 18 ) == "in18"
+    ok: expand( "i%{0:eighteen}n%0out", 18 ) == "i18n18out"
+    ok: expand( "i%{0:eighteen}n%1out", 18, 19 ) == "i18n19out"
+    ok: expand( "i%{1:eighteen}n%0out", 18, 19 ) == "i19n18out"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str_args - Big indexes [test-str-args.cpp:92]
+    =============================================
+    ok: expand( "i%{18}n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i18n"
+    ok: expand( "i%{18:12}n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i18n"
+    ok: expand( "i%{18}%22n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i1822n"
+    ok: expand( "i%{18}%{12}n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i1812n"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str_args - Bad index throws exception [test-str-args.cpp:104]
+    =============================================================
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str_args - Expand different types by construction [test-str-args.cpp:119]
+    =========================================================================
+    ok: expand( "i%0n", 18 ) == "i18n"
+    ok: expand( "i%0n", str_args( 18 ) ) == "i18n"
+    ok: expand( "i%0n", std::string( "nternationalisatio" ) ) == "internationalisation"
+    ok: expand( "i%0n", (char)'c' ) == "icn"
+    ok: expand( "i%0n", "nternationalisatio" ) == "internationalisation"
+    ok: expand( "i%0n", true ) == "i1n"
+    ok: expand( "i%0n", OutputMumble() ) == "iMumblen"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str_args - Expand different types by left-shift operator [test-str-args.cpp:130]
+    ================================================================================
+    ok: expand( "i%0n", str_args() << 18 ) == "i18n"
+    ok: expand( "i%0n", str_args() << str_args( 18 ) ) == "i18n"
+    ok: expand( "i%0n", str_args() << std::string( "nternationalisatio" ) ) == "internationalisation"
+    ok: expand( "i%0n", str_args() << (char)'c' ) == "icn"
+    ok: expand( "i%0n", str_args() << "nternationalisatio" ) == "internationalisation"
+    ok: expand( "i%0n", str_args() << true ) == "i1n"
+    ok: expand( "i%0n", str_args() << OutputMumble() ) == "iMumblen"
+    ok: expand( "i%1n", str_args(1) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args(1) << str_args( 18 ) ) == "i18n"
+    ok: expand( "i%1n", str_args(1) << std::string( "nternationalisatio" ) ) == "internationalisation"
+    ok: expand( "i%1n", str_args(1) << (char)'c' ) == "icn"
+    ok: expand( "i%1n", str_args(1) << "nternationalisatio" ) == "internationalisation"
+    ok: expand( "i%1n", str_args(1) << true ) == "i1n"
+    ok: expand( "i%1n", str_args(1) << OutputMumble() ) == "iMumblen"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str_args - Check different constructors can have left-shift operator applied [test-str-args.cpp:149]
+    ====================================================================================================
+    ok: expand( "i%1n", str_args( 1 ) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args( str_args( 18 ) ) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args( std::string( "nternationalisatio" ) ) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args( (char)'c' ) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args( "nternationalisatio" ) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args( true ) << 18 ) == "i18n"
+    ok: expand( "i%1n", str_args( OutputMumble() ) << 18 ) == "i18n"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 110 test(s)
+0 error(s), 0 todo(s), 165 test(s)

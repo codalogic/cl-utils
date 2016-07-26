@@ -62,6 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\$(ConfigurationName)\lib.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -136,6 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\$(ConfigurationName)\lib.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -184,6 +186,10 @@
 			</File>
 			<File
 				RelativePath=".\test-ptr-vector.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test-str-args.cpp"
 				>
 			</File>
 		</Filter>
