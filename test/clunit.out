@@ -1,4 +1,4 @@
-Tests run on Wed Jul 27 14:30:04 2016
+Tests run on Wed Jul 27 17:44:29 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -198,22 +198,11 @@ Tests run on Wed Jul 27 14:30:04 2016
     ok: expand( "i%1n", str_args(1) << OutputMumble() ) == "iMumblen"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    str_args - Check different constructors can have left-shift operator applied [test-str-args.cpp:149]
-    ====================================================================================================
-    ok: expand( "i%1n", str_args( 1 ) << 18 ) == "i18n"
-    ok: expand( "i%1n", str_args( str_args( 18 ) ) << 18 ) == "i18n"
-    ok: expand( "i%1n", str_args( std::string( "nternationalisatio" ) ) << 18 ) == "i18n"
-    ok: expand( "i%1n", str_args( (char)'c' ) << 18 ) == "i18n"
-    ok: expand( "i%1n", str_args( "nternationalisatio" ) << 18 ) == "i18n"
-    ok: expand( "i%1n", str_args( true ) << 18 ) == "i18n"
-    ok: expand( "i%1n", str_args( OutputMumble() ) << 18 ) == "i18n"
-    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
-
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
 
 TODOs (1):
 ------------------------
-- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:160]
+- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:149]
 
-0 error(s), 1 todo(s), 166 test(s)
+0 error(s), 1 todo(s), 158 test(s)
