@@ -156,3 +156,5 @@ TFEATURE( "str_args - Check different constructors can have left-shift operator 
     TTEST( expand( "i%1n", str_args( true ) << 18 ) == "i18n" );
     TTEST( expand( "i%1n", str_args( OutputMumble() ) << 18 ) == "i18n" );
 }
+
+TFEATURETODO( "Implement str_args_detail::process_named_long_form_parameter_decl()" )

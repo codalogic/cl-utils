@@ -1,4 +1,4 @@
-Tests run on Tue Jul 26 19:49:20 2016
+Tests run on Wed Jul 27 14:30:04 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -208,5 +208,12 @@ Tests run on Tue Jul 26 19:49:20 2016
     ok: expand( "i%1n", str_args( true ) << 18 ) == "i18n"
     ok: expand( "i%1n", str_args( OutputMumble() ) << 18 ) == "i18n"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 165 test(s)
+
+TODOs (1):
+------------------------
+- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:160]
+
+0 error(s), 1 todo(s), 166 test(s)

@@ -37,71 +37,123 @@
 
 namespace clutils {
 
-std::string * str_args::expand_append( std::string * p_out, const char * format ) const
-{
-    try
-    {
-        p_out->reserve( p_out->size() + strlen( format ) );
-        for( size_t i=0; format[i] != '\0'; ++i )
-        {
-            if( format[i] != '%' )
-                p_out->append( 1, format[i] );
+namespace { // Implementation detail
 
-            else
+class str_args_detail
+{
+private:
+    size_t i;
+    std::string * p_result;
+    const char * format;
+    const str_args::args_t & args;
+
+public:
+    str_args_detail( std::string * p_out, const char * format, const str_args::args_t & args )
+        :
+        p_result( p_out ),
+        format( format ),
+        args( args )
+    {
+        try
+        {
+            p_result->reserve( p_result->size() + strlen( format ) );
+            for( i=0; format[i] != '\0'; ++i )
             {
-                ++i;
-                if( format[i] != '\0' )
-                {
-                    if( format[i] == '%' )  // %% -> %
-                        p_out->append( 1, '%' );
-                    else if( format[i] >= '0' && format[i] <= '9' )
-                        p_out->append( args.at( format[i] - '0' ) );
-                    else if( format[i] == '{' )
-                    {
-                        // Long form %{0:a description}
-                        ++i;
-                        if( format[i] != '\0' )
-                        {
-                            if( format[i] >= '0' && format[i] <= '9' )
-                            {
-                                size_t index = 0;
-                                while( format[i] >= '0' && format[i] <= '9' )
-                                    index = 10 * index + format[i++] - '0';
-                                p_out->append( args.at( index ) );
-                                for( ; format[i] != '\0' && format[i] != '}'; ++i )
-                                {}  // Skip over rest of characters in format specifier
-                            }
-                            else
-                            {
-                                #ifndef TEST_ILL_FORMED_LONG_FORM_ARGS
-                                    assert( 0 );    // Decided that ill-formed long form args (e.g. %{mumbo} should not be supported
-                                #endif
-                                p_out->append( "%{" );
-                                p_out->append( 1, format[i] );
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // % followed by non-digit allows for setting and using
-                        // macro arguments, such as:
-                        // l_output.generate( p_item, "^ with [arg => %0] ?The arg is ^%arg$$", 1 );
-                        p_out->append( 1, '%' );
-                        p_out->append( 1, format[i] );
-                    }
-                }
+                if( format[i] != '%' )
+                    p_result->append( 1, format[i] );
+                else
+                    process_parameter_decl();
             }
         }
 
-        return p_out;
+        catch( std::out_of_range & )
+        {
+            assert( 0 ); // We've done something like %1 in our args string when args[1] doesn't exist.  N.B. args are 0 based.
+
+            throw str_argsOutOfRangeException( "str_args args[] index out of range" );
+        }
     }
 
-    catch( std::out_of_range & )
+    void process_parameter_decl()
     {
-        assert( 0 ); // We've done something like %1 in our args string when args[1] doesn't exist.  N.B. args are 0 based.
-
-        throw str_argsOutOfRangeException( "str_args args[] index out of range" );
+        ++i;
+        if( format[i] != '\0' )
+        {
+            if( format[i] == '%' )  // %% -> %
+                p_result->append( 1, '%' );
+            else if( is_numerical_parameter() )
+                p_result->append( args.at( format[i] - '0' ) );
+            else if( format[i] == '{' )
+                process_long_form_parameter_decl();
+            else
+                silently_accept_standalone_parameter_indicator();
+        }
     }
+
+    bool is_numerical_parameter()
+    {
+        return format[i] >= '0' && format[i] <= '9';
+    }
+
+    void process_long_form_parameter_decl()
+    {
+        ++i;
+        if( format[i] != '\0' )
+        {
+            if( is_numerical_parameter() )
+                process_numbered_long_form_parameter_decl();
+            else
+                process_named_long_form_parameter_decl();
+        }
+    }
+
+    void process_numbered_long_form_parameter_decl()
+    {
+        // Long form %{0:a description}
+        size_t index = read_numerical_parameter_index();
+        p_result->append( args.at( index ) );
+        skip_remainder_of_parameter_decl();
+    }
+
+    size_t read_numerical_parameter_index()
+    {
+        size_t index = 0;
+        while( is_numerical_parameter() )
+            index = 10 * index + format[i++] - '0';
+        return index;
+    }
+
+    void skip_remainder_of_parameter_decl()
+    {
+        for( ; format[i] != '\0' && format[i] != '}'; ++i )
+        {}  // Skip over rest of characters in format specifier
+    }
+
+    void process_named_long_form_parameter_decl()
+    {
+        // Named long form %{var-name}
+        // TODO
+        #ifndef TEST_ILL_FORMED_LONG_FORM_ARGS
+            assert( 0 );    // Decided that ill-formed long form args (e.g. %{mumbo} should not be supported
+        #endif
+        p_result->append( "%{" );
+        p_result->append( 1, format[i] );
+    }
+
+    void silently_accept_standalone_parameter_indicator()
+    {
+        p_result->append( 1, '%' );
+        p_result->append( 1, format[i] );
+    }
+
+    std::string * result() const { return p_result; }
+};
+
+} // End of namespace { // Implementation detail
+
+std::string * str_args::expand_append( std::string * p_out, const char * format ) const
+{
+    return str_args_detail( p_out, format, args ).result();
 }
 
 }   // namespace clutils

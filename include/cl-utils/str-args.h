@@ -52,8 +52,11 @@ public:
 
 class str_args
 {
+public:
+    typedef std::vector< std::string > args_t;
+
 private:
-    std::vector< std::string > args;
+    args_t args;
 
 public:
     str_args()
