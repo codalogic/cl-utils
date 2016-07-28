@@ -1,4 +1,4 @@
-Tests run on Thu Jul 28 14:38:51 2016
+Tests run on Thu Jul 28 14:53:19 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -199,7 +199,13 @@ Tests run on Thu Jul 28 14:38:51 2016
     ok: expand( "i%1n", str_args(1) << OutputMumble() ) == "iMumblen"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    str_args - Malformed formats [test-str-args.cpp:150]
+    str_args - Named parameters [test-str-args.cpp:150]
+    ===================================================
+    ok: expand( "i%{eighteen}n", "eighteen", 18 ) == "i18n"
+    ok: expand( "First: %{first}, Second: %{second}", str_args() << "second" << "2nd" << "first" << "1st" ) == "First: 1st, Second: 2nd"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str_args - Malformed formats [test-str-args.cpp:158]
     ====================================================
     ok: expand( "i%", 18 ) == "i%"
     ok: expand( "i%n", 18 ) == "i%n"
@@ -213,6 +219,6 @@ Tests run on Thu Jul 28 14:38:51 2016
 
 TODOs (1):
 ------------------------
-- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:159]
+- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:167]
 
-0 error(s), 1 todo(s), 165 test(s)
+0 error(s), 1 todo(s), 168 test(s)

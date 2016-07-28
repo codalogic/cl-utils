@@ -147,6 +147,14 @@ TFEATURE( "str_args - Expand different types by left-shift operator" )
     TTEST( expand( "i%1n", str_args(1) << OutputMumble() ) == "iMumblen" );
 }
 
+TFEATURE( "str_args - Named parameters" )
+{
+    TTEST( expand( "i%{eighteen}n", "eighteen", 18 ) == "i18n" );
+    TTEST( expand( "First: %{first}, Second: %{second}", str_args() <<
+                "second" << "2nd" <<
+                "first" << "1st" ) == "First: 1st, Second: 2nd" );
+}
+
 TFEATURE( "str_args - Malformed formats" )
 {
     TTEST( expand( "i%", 18 ) == "i%" );

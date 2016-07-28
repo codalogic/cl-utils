@@ -53,6 +53,9 @@ parameter can be included by including a `:` and then a description name.
 For example `%{0:number of files}.  This can help with documentation and
 translation.
 
+Named parameters are supported using the format `%{<parameter-name>}`.
+For example `%{line}`.
+
 Constructors to `str_args` allow inclusion of various types as the arguments
 to be interpolated by `expand()`.  For example:
 
@@ -67,8 +70,21 @@ Or:
 
     s = expand( "File: %0, Line: %1, Col: %2", str_args() << "my-file.txt" << 10 << 2 );
 
-To add a formatted string to the end of a existing string, the following
-can be used:
+When named parameters are used, a pair of `str_args` arguments are used to
+provide the data to `expand`.  The first in the pair is the name of the
+parameter, and the second is the value to be used for the parameter.
+When a named parameter is looked up, a search is made for an argument that
+has a value of the name of the parameter indicated in the `format`.  If
+such an argument is found, then the argument following the found argument
+is used as the value for string interpolation.  For example:
+
+    s = expand( "File: %{file}, Line: %{line}, Col: %{col}", str_args() <<
+                    "file" << "my-file.txt" <<
+                    "line" << 10 <<
+                    "col" << 2 );
+
+To add a formatted string to the end of a existing string, `expand_append`
+following can be used:
 
     std::string & expand_append( std::string * p_out, const char format[], const str_args & r_args );
     std::string & expand_append( std::string * p_out, const char format[], const str_args & r_arg_1, const str_args & r_arg_2 );

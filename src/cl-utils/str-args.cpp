@@ -34,6 +34,7 @@
 #include "cl-utils/str-args.h"
 
 #include <cassert>
+#include <algorithm>
 
 namespace clutils {
 
@@ -131,12 +132,19 @@ public:
     void process_named_long_form_parameter_decl()
     {
         // Named long form %{var-name}
-        // TODO
-        #ifndef TEST_ILL_FORMED_LONG_FORM_ARGS
-            assert( 0 );    // Decided that ill-formed long form args (e.g. %{mumbo} should not be supported
-        #endif
-        p_result->append( "%{" );
-        p_result->append( 1, format[i] );
+        std::string name = read_parameter_name();
+        str_args::args_t::const_iterator key_index = std::find( args.begin(), args.end(), name );
+        if( key_index != args.end() )
+            p_result->append( *(++key_index) );
+        skip_remainder_of_parameter_decl();
+    }
+
+    std::string read_parameter_name()
+    {
+        std::string name;
+        for( ; format[i] != '\0' && format[i] != '}'; ++i )
+            name.append( 1, format[i] );
+        return name;
     }
 
     void silently_accept_standalone_parameter_indicator()
