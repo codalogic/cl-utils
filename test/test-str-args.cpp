@@ -72,6 +72,7 @@ TFEATURE( "str_args - %%" )
 TFEATURE( "str_args - Positional indexing" )
 {
     TTEST( expand( "i%0n", 18 ) == "i18n" );
+    TTEST( expand( "i%08n", 1 ) == "i18n" );
     TTEST( expand( "i%{0}n", 18 ) == "i18n" );
     TTEST( expand( "i%{0:eighteen}n", 18 ) == "i18n" );
 
@@ -144,6 +145,15 @@ TFEATURE( "str_args - Expand different types by left-shift operator" )
     TTEST( expand( "i%1n", str_args(1) << "nternationalisatio" ) == "internationalisation" );
     TTEST( expand( "i%1n", str_args(1) << true ) == "i1n" );
     TTEST( expand( "i%1n", str_args(1) << OutputMumble() ) == "iMumblen" );
+}
+
+TFEATURE( "str_args - Malformed formats" )
+{
+    TTEST( expand( "i%", 18 ) == "i%" );
+    TTEST( expand( "i%n", 18 ) == "i%n" );
+    TTEST( expand( "i%{0", 18 ) == "i18" );
+    TTEST( expand( "i%{0 ", 18 ) == "i18" );
+    TTEST( expand( "i%{0not", 18 ) == "i18" );
 }
 
 TFEATURETODO( "Implement str_args_detail::process_named_long_form_parameter_decl()" )

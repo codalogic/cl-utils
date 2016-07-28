@@ -77,17 +77,16 @@ public:
     void process_parameter_decl()
     {
         ++i;
-        if( format[i] != '\0' )
-        {
-            if( format[i] == '%' )  // %% -> %
-                p_result->append( 1, '%' );
-            else if( is_numerical_parameter() )
-                p_result->append( args.at( format[i] - '0' ) );
-            else if( format[i] == '{' )
-                process_long_form_parameter_decl();
-            else
-                silently_accept_standalone_parameter_indicator();
-        }
+        if( format[i] == '\0' )     // Malformed case, but be tolerant
+            p_result->append( 1, '%' );
+        else if( format[i] == '%' )  // %% -> %
+            p_result->append( 1, '%' );
+        else if( is_numerical_parameter() )
+            p_result->append( args.at( format[i] - '0' ) );
+        else if( format[i] == '{' )
+            process_long_form_parameter_decl();
+        else
+            silently_accept_standalone_parameter_indicator();
     }
 
     bool is_numerical_parameter()

@@ -1,4 +1,4 @@
-Tests run on Wed Jul 27 17:44:29 2016
+Tests run on Thu Jul 28 14:38:51 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -144,6 +144,7 @@ Tests run on Wed Jul 27 17:44:29 2016
     str_args - Positional indexing [test-str-args.cpp:72]
     =====================================================
     ok: expand( "i%0n", 18 ) == "i18n"
+    ok: expand( "i%08n", 1 ) == "i18n"
     ok: expand( "i%{0}n", 18 ) == "i18n"
     ok: expand( "i%{0:eighteen}n", 18 ) == "i18n"
     ok: expand( "%0in", 18 ) == "18in"
@@ -157,7 +158,7 @@ Tests run on Wed Jul 27 17:44:29 2016
     ok: expand( "i%{1:eighteen}n%0out", 18, 19 ) == "i19n18out"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    str_args - Big indexes [test-str-args.cpp:92]
+    str_args - Big indexes [test-str-args.cpp:93]
     =============================================
     ok: expand( "i%{18}n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i18n"
     ok: expand( "i%{18:12}n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i18n"
@@ -165,11 +166,11 @@ Tests run on Wed Jul 27 17:44:29 2016
     ok: expand( "i%{18}%{12}n", str_args( 0 ) << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17 << 18 ) == "i1812n"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    str_args - Bad index throws exception [test-str-args.cpp:104]
+    str_args - Bad index throws exception [test-str-args.cpp:105]
     =============================================================
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    str_args - Expand different types by construction [test-str-args.cpp:119]
+    str_args - Expand different types by construction [test-str-args.cpp:120]
     =========================================================================
     ok: expand( "i%0n", 18 ) == "i18n"
     ok: expand( "i%0n", str_args( 18 ) ) == "i18n"
@@ -180,7 +181,7 @@ Tests run on Wed Jul 27 17:44:29 2016
     ok: expand( "i%0n", OutputMumble() ) == "iMumblen"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    str_args - Expand different types by left-shift operator [test-str-args.cpp:130]
+    str_args - Expand different types by left-shift operator [test-str-args.cpp:131]
     ================================================================================
     ok: expand( "i%0n", str_args() << 18 ) == "i18n"
     ok: expand( "i%0n", str_args() << str_args( 18 ) ) == "i18n"
@@ -198,11 +199,20 @@ Tests run on Wed Jul 27 17:44:29 2016
     ok: expand( "i%1n", str_args(1) << OutputMumble() ) == "iMumblen"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
+    str_args - Malformed formats [test-str-args.cpp:150]
+    ====================================================
+    ok: expand( "i%", 18 ) == "i%"
+    ok: expand( "i%n", 18 ) == "i%n"
+    ok: expand( "i%{0", 18 ) == "i18"
+    ok: expand( "i%{0 ", 18 ) == "i18"
+    ok: expand( "i%{0not", 18 ) == "i18"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
 
 TODOs (1):
 ------------------------
-- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:149]
+- Implement str_args_detail::process_named_long_form_parameter_decl() [test-str-args.cpp:159]
 
-0 error(s), 1 todo(s), 158 test(s)
+0 error(s), 1 todo(s), 165 test(s)
