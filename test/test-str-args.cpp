@@ -163,5 +163,3 @@ TFEATURE( "str_args - Malformed formats" )
     TTEST( expand( "i%{0 ", 18 ) == "i18" );
     TTEST( expand( "i%{0not", 18 ) == "i18" );
 }
-
-TFEATURETODO( "Implement str_args_detail::process_named_long_form_parameter_decl()" )
