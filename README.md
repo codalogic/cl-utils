@@ -92,3 +92,35 @@ following can be used:
 For example:
 
     expand_append( &s, "File: %0, Line: %1", "my-file.txt", 10 );
+
+str_convert
+-----------
+
+`str_convert` performs conversion of values to and from strings using
+`sstream`.
+
+`to_string` will convert a value to a string representation.  `bool`
+values will be converted to either `true` or `false`.
+
+`from_string` has both checked and unchecked forms.
+
+The unchecked form will return `T()` if the conversion fails due to
+malformed input.  Use as:
+
+    int i = from_string<int>( "123" );
+
+The checked form returns `true` if the conversion succeeds and `false`
+otherwise.  Use as:
+
+    int i;
+    if( from_string( i, "123" ) )
+    {
+        ...
+    }
+
+When `from_string` is applied to `bool` values, the unchecked
+form will return `false` for the strings `0`, `false`, `False` and `FALSE`.
+All other values will return `true`.  For the checked version,
+`false` is supplied for `0`, `false`, `False` and `FALSE`, while `true`
+is supplied for `1`, `true`, `True`, and `TRUE`.  The check function will
+return `false` for any other input value.

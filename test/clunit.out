@@ -1,4 +1,4 @@
-Tests run on Fri Aug 12 11:51:58 2016
+Tests run on Fri Aug 12 12:23:13 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -213,5 +213,72 @@ Tests run on Fri Aug 12 11:51:58 2016
     ok: expand( "i%{0 ", 18 ) == "i18"
     ok: expand( "i%{0not", 18 ) == "i18"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    convert - Unchecked from_string() [test-str-convert.cpp:42]
+    ===========================================================
+    ok: from_string<int>( "123" ) == 123
+    ok: from_string<int>( "   123" ) == 123
+    ok: from_string<float>( "123.5" ) == 123.5
+    ok: from_string<bool>( "false" ) == false
+    ok: from_string<bool>( "False" ) == false
+    ok: from_string<bool>( "FALSE" ) == false
+    ok: from_string<bool>( "true" ) == true
+    ok: from_string<bool>( "True" ) == true
+    ok: from_string<bool>( "TRUE" ) == true
+    ok: from_string<bool>( "0" ) == false
+    ok: from_string<bool>( "1" ) == true
+    ok: from_string<bool>( "   false" ) == false
+    ok: from_string<bool>( "   true" ) == true
+    ok: from_string<bool>( "   0" ) == false
+    ok: from_string<bool>( "   1" ) == true
+    ok: from_string<int>( "foo" ) == 0
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    convert - Checked from_string() [test-str-convert.cpp:67]
+    =========================================================
+    ok: from_string( iout, "123" ) == true
+    ok: iout == 123
+    ok: from_string( iout, "   123" ) == true
+    ok: iout == 123
+    ok: from_string( fout, "123.5" ) == true
+    ok: fout == 123.5
+    ok: from_string( bout, "false" ) == true
+    ok: bout == false
+    ok: from_string( bout, "False" ) == true
+    ok: bout == false
+    ok: from_string( bout, "FALSE" ) == true
+    ok: bout == false
+    ok: from_string( bout, "true" ) == true
+    ok: bout == true
+    ok: from_string( bout, "True" ) == true
+    ok: bout == true
+    ok: from_string( bout, "TRUE" ) == true
+    ok: bout == true
+    ok: from_string( bout, "0" ) == true
+    ok: bout == false
+    ok: from_string( bout, "1" ) == true
+    ok: bout == true
+    ok: from_string( bout, "   false" ) == true
+    ok: bout == false
+    ok: from_string( bout, "   true" ) == true
+    ok: bout == true
+    ok: from_string( bout, "   0" ) == true
+    ok: bout == false
+    ok: from_string( bout, "   1" ) == true
+    ok: bout == true
+    ok: from_string( iout, "foo" ) == false
+    ok: from_string( bout, "foo" ) == false
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    convert - to_string() [test-str-convert.cpp:113]
+    ================================================
+    ok: to_string( "foo" ) == "foo"
+    ok: to_string( 123 ) == "123"
+    ok: to_string( 123.5 ) == "123.5"
+    ok: to_string( 0 ) == "0"
+    ok: to_string( 1 ) == "1"
+    ok: to_string( true ) == "true"
+    ok: to_string( false ) == "false"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 167 test(s)
+0 error(s), 0 todo(s), 225 test(s)
