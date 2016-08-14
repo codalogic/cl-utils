@@ -14,4 +14,4 @@ $strand angst
 versions    # Invoking 'versions' must happen after setting up $owner/$project variables
 
 copy include/cl-utils/str-args.h   ${cl_utils_h_dst}
-copy include/cl-utils/str-args.cpp ${cl_utils_cpp_dst}
+copy src/cl-utils/str-args.cpp     ${cl_utils_cpp_dst}
