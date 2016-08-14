@@ -1,3 +1,6 @@
+# See https://github.com/codalogic/exodep for details on use and format of
+# exodep file
+
 default $h_dst   include/cl-utils/
 default $cpp_dst src/cl-utils/
 
