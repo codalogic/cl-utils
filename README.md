@@ -124,3 +124,15 @@ All other values will return `true`.  For the checked version,
 `false` is supplied for `0`, `false`, `False` and `FALSE`, while `true`
 is supplied for `1`, `true`, `True`, and `TRUE`.  The check function will
 return `false` for any other input value.
+
+str_ops
+-------
+
+`str_ops` contains common string operations.
+
+Currently this consists of `ltrim`, `rtrim` and `trim`.  Variants that take a
+pointer to a string modify the string in-place.  A reference to the in-place
+modified string is returned.  Variants that take a const reference to a string,
+take a copy the input string, modify it and return the result.  All variants
+can take an additional parameter that is a string of the characters to be
+trimmed.
