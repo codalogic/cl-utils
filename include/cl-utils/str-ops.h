@@ -38,45 +38,47 @@
 
 namespace clutils {
 
-const char * ws = " \t\n\r\f\v";
+namespace detail {
+    const char * default_trim_whitespace = " \t\n\r\f\v";
+}
 
 // in-place trim from beginning of string
-inline std::string & ltrim( std::string * p_s, const char * p_what = ws )
+inline std::string & ltrim( std::string * p_s, const char * p_what = detail::default_trim_whitespace )
 {
     p_s->erase( 0, p_s->find_first_not_of( p_what ) );
     return *p_s;
 }
 
 // copy trim from beginning of string
-inline std::string ltrim( const std::string & r_s, const char * p_what = ws )
+inline std::string ltrim( const std::string & r_s, const char * p_what = detail::default_trim_whitespace )
 {
     std::string s( r_s );
     return ltrim( &s, p_what );
 }
 
 // in-place trim from end of string
-inline std::string & rtrim( std::string * p_s, const char * p_what = ws )
+inline std::string & rtrim( std::string * p_s, const char * p_what = detail::default_trim_whitespace )
 {
     p_s->erase( p_s->find_last_not_of( p_what ) + 1 );
     return *p_s;
 }
 
 // copy trim from end of string
-inline std::string rtrim( const std::string & r_s, const char * p_what = ws )
+inline std::string rtrim( const std::string & r_s, const char * p_what = detail::default_trim_whitespace )
 {
     std::string s( r_s );
     return rtrim( &s, p_what );
 }
 
 // in-place trim from both ends of string
-inline std::string & trim( std::string * p_s, const char * p_what = ws )
+inline std::string & trim( std::string * p_s, const char * p_what = detail::default_trim_whitespace )
 {
     rtrim( p_s, p_what );
     return ltrim( p_s, p_what );
 }
 
 // copy trim from both ends of string
-inline std::string trim( const std::string & r_s, const char * p_what = ws )
+inline std::string trim( const std::string & r_s, const char * p_what = detail::default_trim_whitespace )
 {
     std::string s( r_s );
     return trim( &s, p_what );

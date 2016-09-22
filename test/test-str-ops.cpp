@@ -46,18 +46,21 @@ TFEATURE( "[lr]?trim - copy" )
     TTEST( ltrim( "  x" ) == "x" );
     TTEST( ltrim( "\r\n \t\v\fxy" ) == "xy" );
     TTEST( ltrim( "  x  " ) == "x  " );
+    TTEST( ltrim( "abx", "ab" ) == "x" );
 
     TTEST( rtrim( "" ) == "" );
     TTEST( rtrim( "  " ) == "" );
     TTEST( rtrim( "x  " ) == "x" );
     TTEST( rtrim( "xy\r\n \t\v\f" ) == "xy" );
     TTEST( rtrim( "  x  " ) == "  x" );
+    TTEST( rtrim( "xab", "ab" ) == "x" );
 
     TTEST( trim( "" ) == "" );
     TTEST( trim( "  " ) == "" );
     TTEST( trim( "x  " ) == "x" );
     TTEST( trim( "\r\n \t\v\fxy\r\n \t\v\f" ) == "xy" );
     TTEST( trim( "  x  " ) == "x" );
+    TTEST( trim( "abxab", "ab" ) == "x" );
 }
 
 void test_in_place_ltrim( const char * in, const char * out )
