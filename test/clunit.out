@@ -1,4 +1,4 @@
-Tests run on Fri Aug 12 12:23:13 2016
+Tests run on Thu Sep 22 12:17:43 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -280,5 +280,73 @@ Tests run on Fri Aug 12 12:23:13 2016
     ok: to_string( true ) == "true"
     ok: to_string( false ) == "false"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    [lr]?trim - copy [test-str-ops.cpp:42]
+    ======================================
+    ok: ltrim( "" ) == ""
+    ok: ltrim( "  " ) == ""
+    ok: ltrim( "  x" ) == "x"
+    ok: ltrim( "\r\n \t\v\fxy" ) == "xy"
+    ok: ltrim( "  x  " ) == "x  "
+    ok: rtrim( "" ) == ""
+    ok: rtrim( "  " ) == ""
+    ok: rtrim( "x  " ) == "x"
+    ok: rtrim( "xy\r\n \t\v\f" ) == "xy"
+    ok: rtrim( "  x  " ) == "  x"
+    ok: trim( "" ) == ""
+    ok: trim( "  " ) == ""
+    ok: trim( "x  " ) == "x"
+    ok: trim( "\r\n \t\v\fxy\r\n \t\v\f" ) == "xy"
+    ok: trim( "  x  " ) == "x"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    [lr]?trim - in-place [test-str-ops.cpp:84]
+    ==========================================
+      Calling: test_in_place_ltrim( "", "" ) (86)
+    ok: ltrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_ltrim( "  ", "" ) (87)
+    ok: ltrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_ltrim( "  x", "x" ) (88)
+    ok: ltrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_ltrim( "\r\n \t\v\fxy", "xy" ) (89)
+    ok: ltrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_ltrim( "  x  ", "x  " ) (90)
+    ok: ltrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_rtrim( "", "" ) (92)
+    ok: rtrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_rtrim( "  ", "" ) (93)
+    ok: rtrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_rtrim( "x  ", "x" ) (94)
+    ok: rtrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_rtrim( "xy\r\n \t\v\f", "xy" ) (95)
+    ok: rtrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_rtrim( "  x  ", "  x" ) (96)
+    ok: rtrim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_trim( "", "" ) (98)
+    ok: trim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_trim( "  ", "" ) (99)
+    ok: trim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_trim( "x  ", "x" ) (100)
+    ok: trim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_trim( "\r\n \t\v\fxy\r\n \t\v\f", "xy" ) (101)
+    ok: trim( &s ) == out
+    ok: s == out
+      Calling: test_in_place_trim( "  x  ", "x" ) (102)
+    ok: trim( &s ) == out
+    ok: s == out
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 225 test(s)
+0 error(s), 0 todo(s), 272 test(s)

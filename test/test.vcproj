@@ -196,6 +196,10 @@
 				RelativePath=".\test-str-convert.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test-str-ops.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

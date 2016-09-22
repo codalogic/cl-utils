@@ -177,6 +177,10 @@
 				RelativePath="..\include\cl-utils\str-convert.h"
 				>
 			</File>
+			<File
+				RelativePath="..\include\cl-utils\str-ops.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
