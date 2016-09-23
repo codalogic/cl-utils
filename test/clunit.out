@@ -1,4 +1,4 @@
-Tests run on Thu Sep 22 12:38:20 2016
+Tests run on Fri Sep 23 17:08:44 2016
 
     iterator_range [test-iterator-range.cpp:43]
     ===========================================
@@ -281,8 +281,8 @@ Tests run on Thu Sep 22 12:38:20 2016
     ok: to_string( false ) == "false"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    [lr]?trim - copy [test-str-ops.cpp:42]
-    ======================================
+    [lr]?trim - copy [test-str-trim.cpp:42]
+    =======================================
     ok: ltrim( "" ) == ""
     ok: ltrim( "  " ) == ""
     ok: ltrim( "  x" ) == "x"
@@ -303,8 +303,8 @@ Tests run on Thu Sep 22 12:38:20 2016
     ok: trim( "abxab", "ab" ) == "x"
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    [lr]?trim - in-place [test-str-ops.cpp:87]
-    ==========================================
+    [lr]?trim - in-place [test-str-trim.cpp:87]
+    ===========================================
       Calling: test_in_place_ltrim( "", "" ) (89)
     ok: ltrim( &s ) == out
     ok: s == out

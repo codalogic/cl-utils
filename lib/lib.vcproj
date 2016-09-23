@@ -178,7 +178,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\cl-utils\str-ops.h"
+				RelativePath="..\include\cl-utils\str-trim.h"
 				>
 			</File>
 		</Filter>

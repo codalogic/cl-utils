@@ -1,6 +1,10 @@
 # See https://github.com/codalogic/exodep for details on use and format of
 # exodep file
 
+# cl-utils.str-trim documentation at:
+#
+#    https://github.com/codalogic/cl-utils
+
 default $h_dst   include/cl-utils/
 default $cpp_dst src/cl-utils/
 
@@ -13,4 +17,4 @@ $strand angst
 
 versions    # Invoking 'versions' must happen after setting up $owner/$project variables
 
-copy include/cl-utils/str-ops.h   ${cl_utils_h_dst}
+copy include/cl-utils/str-trim.h   ${cl_utils_h_dst}

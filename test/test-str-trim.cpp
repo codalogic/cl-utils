@@ -31,7 +31,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------
 
-#include "cl-utils/str-ops.h"
+#include "cl-utils/str-trim.h"
 
 #include <string>
 

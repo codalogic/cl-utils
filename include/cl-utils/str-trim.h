@@ -31,8 +31,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------
 
-#ifndef CLUTIL_STR_OPS
-#define CLUTIL_STR_OPS
+#ifndef CLUTIL_STR_TRIM
+#define CLUTIL_STR_TRIM
 
 #include <string>
 
@@ -86,4 +86,4 @@ inline std::string trim( const std::string & r_s, const char * p_what = detail::
 
 }   // namespace clutils
 
-#endif // CLUTIL_STR_OPS
+#endif // CLUTIL_STR_TRIM
