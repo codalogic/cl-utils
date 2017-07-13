@@ -151,13 +151,13 @@ It has the following methods:
 
 `is_flag()` tests if the currently selected parameter looks like a flag.
 
-`bool is_flag( const char * p_option_1, int desired_extra_count = 0 )` test if the current
+`bool is_flag( const char * p_option_1, int desired_extra_count = 0 )` tests if the current
 parameter matches the specified flag.  If `desired_extra_count` is specified
 then that many additional arguments (not including the current one) must be
 available to process.
 
 `is_flag( const char * p_option_1, const char * p_option_2, int desired_extra_count = 0 )` is
-similar to `is_flag( const char * p_option_1, int desired_extra_count = 0 )`, but test for a
+similar to `is_flag( const char * p_option_1, int desired_extra_count = 0 )`, but tests for a
 flag to be either of the two specified options.
 
 `bool ensure( int desired_extra_count, const char * p_on_insufficient_message )` tests
@@ -165,20 +165,21 @@ that there are `desired_extra_count` extra arguments after the current argument.
 If not, the error message is displayed, and the remaining argument count is set
 to `0`.
 
-`current()` return a pointer to the current parameter.
+`current()` returns a pointer to the current parameter.
 
 `next()` moves to the next parameter and returns a pointer to it.  `++` on the
 object may also be used.
 
-`empty()` returns `true` if there are no more arguments to be processed.  The
-object also has an `operator bool ()` method that will return `true` if there
-are more arguments available.
+`empty()` returns `true` if there are no more arguments to be processed.
+
+The class also has an `operator bool ()` method that will return `true` if
+there are more arguments available.
 
 Example usage:
 
     clutils::CommandLineArgs cla( argc, argv );
 
-    if( cla.empty() )
+    if( ! cla )
     {
         help();
         return false;
