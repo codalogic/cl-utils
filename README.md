@@ -136,3 +136,65 @@ modified string is returned.  Variants that take a const reference to a string,
 take a copy the input string, modify it and return the result.  All variants
 can take an additional parameter that is a string of the characters to be
 trimmed.
+
+CommandLineArgs
+---------------
+
+`CommandLineArgs` is a cheap and cheerful utility class to help make
+processing command line arguments passed to main() easier.
+
+Create an instance of the class as follows:
+
+    CommandLineArgs cla( argc, argv )
+
+It has the following methods:
+
+`is_flag()` tests if the currently selected parameter looks like a flag.
+
+`bool is_flag( const char * p_option_1, int desired_extra_count = 0 )` test if the current
+parameter matches the specified flag.  If `desired_extra_count` is specified
+then that many additional arguments (not including the current one) must be
+available to process.
+
+`is_flag( const char * p_option_1, const char * p_option_2, int desired_extra_count = 0 )` is
+similar to `is_flag( const char * p_option_1, int desired_extra_count = 0 )`, but test for a
+flag to be either of the two specified options.
+
+`bool ensure( int desired_extra_count, const char * p_on_insufficient_message )` tests
+that there are `desired_extra_count` extra arguments after the current argument.
+If not, the error message is displayed, and the remaining argument count is set
+to `0`.
+
+`current()` return a pointer to the current parameter.
+
+`next()` moves to the next parameter and returns a pointer to it.  `++` on the
+object may also be used.
+
+`empty()` returns `true` if there are no more arguments to be processed.  The
+object also has an `operator bool ()` method that will return `true` if there
+are more arguments available.
+
+Example usage:
+
+    clutils::CommandLineArgs cla( argc, argv );
+
+    if( cla.empty() )
+    {
+        help();
+        return false;
+    }
+
+    for( ; cla; ++cla )
+    {
+        if( cla.is_flag( "-h", "-?" ) )
+        {
+            help();
+            return false;
+        }
+        else if( cla.is_flag( "-json" ) && cla.ensure( 2, "-json flag must include name of JSON file to validate" ) )
+            p_config->set_json( cla.next() );
+        else if( cla.is_flag() )
+            std::cout << "Unknown flag: " << cla.current() << "\n";
+        else
+            p_config->add_jcr( cla.current() );
+    }
