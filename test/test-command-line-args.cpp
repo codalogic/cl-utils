@@ -93,7 +93,7 @@ TFEATURE( "CommandLineArgs" )
     TTEST( cla.is_flag( "-?" ) );
     TTEST( cla.is_flag( "-h", "-?" ) );
     TTEST( cla.is_flag( "-?", "-h" ) );
-    TTEST( cla.is_flag( "-other" ) ==  false );
+    TTEST( cla.is_flag( "-other" ) == false );
     TSETUP( cla.next() );
     TTEST( cla.empty() );
     }
@@ -119,9 +119,14 @@ TFEATURE( "CommandLineArgs" )
     TTEST( cla.is_flag( "-o" ) );
     TTEST( cla.is_flag( "-o", 0 ) );
     TTEST( cla.is_flag( "-o", 1 ) );
-    TTEST( cla.is_flag( "-o", 2 ) == false );  // Test sufficient arguments check
     TTEST( cla.next() == std::string( "my-file.txt" ) );
     TSETUP( cla.next() );
+    TTEST( cla.empty() );
+    }
+
+    {
+    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) );
+    TTEST( cla.is_flag( "-o", 2 ) == false );  // Test sufficient arguments check
     TTEST( cla.empty() );
     }
 
@@ -145,6 +150,7 @@ TFEATURE( "CommandLineArgs" )
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag( "-o" ) );
     TTEST( cla.ensure( 2, "-o flag requires 2 parameters" ) );
+    TTEST( cla.is_flag( "-o", 2, "-o flag requires 2 parameters" ) );
     TTEST( cla.next() == std::string( "my-file.txt" ) );
     TTEST( cla.next() == std::string( "my-other-file.txt" ) );
     TSETUP( cla.next() );
@@ -153,11 +159,38 @@ TFEATURE( "CommandLineArgs" )
 
     {
     CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
-    TTEST( cla == true );
-    TTEST( ! cla.empty() );
+    TTEST( cla );
     TTEST( cla.is_flag( "-o" ) );
-    TTEST( cla.ensure( 3, "-o flag requires 3 parameters" ) ==  false );
+    TTEST( cla.ensure( 3 ) == false );  // Test sufficient arguments check
+    TTEST( cla.empty() );
+    }
+
+    {
+    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TTEST( cla );
+    TTEST( cla.is_flag( "-o", 3 ) == false );  // Test sufficient arguments check
+    TTEST( cla.empty() );
+    }
+
+    {
+    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TTEST( cla );
+    TTEST( cla.is_flag( "-o" ) );
+    TTEST( cla.ensure( 3, "-o flag requires 3 parameters" ) == false );  // Test sufficient arguments check
+    TTEST( cla.empty() );
+    }
+
+    {
+    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TTEST( cla );
+    TTEST( cla.is_flag( "-o", 3, "-o flag requires 3 parameters" ) == false );  // Test sufficient arguments check
+    TTEST( cla.empty() );
+    }
+
+    {
+    CommandLineArgs cla( SIZED_ARGV( argv_help ) );
+    TTEST( cla );
+    TTEST( cla.ensure( 1 ) == false );  // Test sufficient arguments check
     TTEST( cla.empty() );
     }
 }
-
