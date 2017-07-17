@@ -107,6 +107,9 @@ TFEATURE( "CommandLineArgs" )
     TTEST( cla.is_flag( "?" ) );
     TTEST( cla.is_flag( "h", "?" ) );
     TTEST( cla.is_flag( "?", "h" ) );
+    TTEST( cla.flag_marker() == std::string( "-" ) );
+    TTEST( cla.flag_name() == std::string( "?" ) );
+    TTEST( cla.flag() == "-?" );
     TTEST( cla.is_flag( "other" ) == false );
     TSETUP( cla.next() );
     TTEST( cla.empty() );
@@ -118,6 +121,9 @@ TFEATURE( "CommandLineArgs" )
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() == false );
     TTEST( cla.current() == std::string( "my-file.txt" ) );
+    TTEST( cla.flag_marker() == std::string( "" ) );
+    TTEST( cla.flag_name() == std::string( "" ) );
+    TTEST( cla.flag() == "" );
     TSETUP( cla.next() );
     TTEST( ! cla.empty() );
     TTEST( cla.current() == std::string( "my-other-file.txt" ) );
@@ -141,6 +147,9 @@ TFEATURE( "CommandLineArgs" )
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
     TTEST( cla.is_flag( "o" ) );
+    TTEST( cla.flag_marker() == std::string( "-" ) );
+    TTEST( cla.flag_name() == std::string( "o" ) );
+    TTEST( cla.flag() == "-o" );
     TTEST( cla.is_flag( "o", 0 ) );
     TTEST( cla.is_flag( "o", 1 ) );
     TTEST( cla.next() == std::string( "my-file.txt" ) );
@@ -174,6 +183,9 @@ TFEATURE( "CommandLineArgs" )
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
     TTEST( cla.is_flag( "output", 1 ) );
+    TTEST( cla.flag_marker() == std::string( "-" ) );
+    TTEST( cla.flag_name() == std::string( "output" ) );
+    TTEST( cla.flag() == "-output" );
     TTEST( cla.next() == std::string( "my-file.txt" ) );
     TSETUP( cla.next() );
     TTEST( ! cla.empty() );
@@ -202,6 +214,9 @@ TFEATURE( "CommandLineArgs" )
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
     TTEST( cla.is_flag( "o", "output", 1 ) );
+    TTEST( cla.flag_marker() == std::string( "--" ) );
+    TTEST( cla.flag_name() == std::string( "output" ) );
+    TTEST( cla.flag() == "--output" );
     TTEST( cla.next() == std::string( "my-file.txt" ) );
     TSETUP( cla.next() );
     TTEST( ! cla.empty() );

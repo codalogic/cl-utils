@@ -1,4 +1,4 @@
-Tests run on Mon Jul 17 11:11:26 2017
+Tests run on Mon Jul 17 12:03:09 2017
 
     CommandLineArgs [test-command-line-args.cpp:86]
     ===============================================
@@ -16,6 +16,9 @@ Tests run on Mon Jul 17 11:11:26 2017
     ok: cla.is_flag( "?" )
     ok: cla.is_flag( "h", "?" )
     ok: cla.is_flag( "?", "h" )
+    ok: cla.flag_marker() == std::string( "-" )
+    ok: cla.flag_name() == std::string( "?" )
+    ok: cla.flag() == "-?"
     ok: cla.is_flag( "other" ) == false
       : cla.next()
     ok: cla.empty()
@@ -24,6 +27,9 @@ Tests run on Mon Jul 17 11:11:26 2017
     ok: ! cla.empty()
     ok: cla.is_flag() == false
     ok: cla.current() == std::string( "my-file.txt" )
+    ok: cla.flag_marker() == std::string( "" )
+    ok: cla.flag_name() == std::string( "" )
+    ok: cla.flag() == ""
       : cla.next()
     ok: ! cla.empty()
     ok: cla.current() == std::string( "my-other-file.txt" )
@@ -40,6 +46,9 @@ Tests run on Mon Jul 17 11:11:26 2017
     ok: ! cla.empty()
     ok: cla.is_flag()
     ok: cla.is_flag( "o" )
+    ok: cla.flag_marker() == std::string( "-" )
+    ok: cla.flag_name() == std::string( "o" )
+    ok: cla.flag() == "-o"
     ok: cla.is_flag( "o", 0 )
     ok: cla.is_flag( "o", 1 )
     ok: cla.next() == std::string( "my-file.txt" )
@@ -64,6 +73,9 @@ Tests run on Mon Jul 17 11:11:26 2017
     ok: ! cla.empty()
     ok: cla.is_flag()
     ok: cla.is_flag( "output", 1 )
+    ok: cla.flag_marker() == std::string( "-" )
+    ok: cla.flag_name() == std::string( "output" )
+    ok: cla.flag() == "-output"
     ok: cla.next() == std::string( "my-file.txt" )
       : cla.next()
     ok: ! cla.empty()
@@ -86,6 +98,9 @@ Tests run on Mon Jul 17 11:11:26 2017
     ok: ! cla.empty()
     ok: cla.is_flag()
     ok: cla.is_flag( "o", "output", 1 )
+    ok: cla.flag_marker() == std::string( "--" )
+    ok: cla.flag_name() == std::string( "output" )
+    ok: cla.flag() == "--output"
     ok: cla.next() == std::string( "my-file.txt" )
       : cla.next()
     ok: ! cla.empty()
@@ -478,4 +493,4 @@ Tests run on Mon Jul 17 11:11:26 2017
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 367 test(s)
+0 error(s), 0 todo(s), 382 test(s)

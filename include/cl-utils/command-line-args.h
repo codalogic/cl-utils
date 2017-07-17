@@ -41,6 +41,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <string>
 
 namespace clutils {
 
@@ -64,7 +65,7 @@ public:
     }
     bool is_flag( const char * p_option_1 ) const  // Is a specified flag
     {
-        return is_flag() && strcmp( p_option_1, flag_name() ) == 0;
+        return is_flag() && strcmp( p_option_1, find_flag_name() ) == 0;
     }
     bool is_flag( const char * p_option_1, int desired_extra_count, const char * p_on_insufficient_message = 0 )  // Is a specified flag
     {
@@ -97,6 +98,9 @@ public:
         return true;
     }
     const char * current() const { return *argv; }
+    const char * flag_marker() const { return ! is_flag() ? "" : (*((*argv) + 1) == '-') ? "--" : "-"; }
+    const char * flag_name() const { return is_flag() ? find_flag_name() : ""; }
+    std::string flag() const { return std::string( flag_marker() ) + flag_name(); }
     const char * next() { if( argc > 0 ) { ++argv; --argc; } return *argv; }
     void operator ++ () { next(); }
     void operator ++ (int) { next(); }
@@ -104,7 +108,7 @@ public:
     operator bool () { return ! empty(); }
 
 private:
-    const char * flag_name() const
+    const char * find_flag_name() const
     {
         const char * p_flag = (*argv) + 1;
         if( *p_flag == '-' )    // Allow for '--flag'
