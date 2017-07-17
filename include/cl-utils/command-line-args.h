@@ -97,8 +97,6 @@ public:
         return true;
     }
     const char * current() const { return *argv; }
-    const char * flag() const { return is_flag() ? flag_name() : ""; }
-    const char * flag_marker() const { return ! is_flag() ? "" : (*((*argv) + 1) == '-') ? "--" : "-"; }
     const char * next() { if( argc > 0 ) { ++argv; --argc; } return *argv; }
     void operator ++ () { next(); }
     void operator ++ (int) { next(); }
