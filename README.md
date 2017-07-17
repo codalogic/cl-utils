@@ -154,6 +154,11 @@ the constructor. `argc` and `argv` are the parameters received by `main()`.
 The `r_os` parameter allows any error messages to be re-directed to an
 alternative destination to `std::cerr`.
 
+`CommandLineArgs( int argc, char ** argv, void (*p_help_function)(), std::ostream & r_os = std::cerr )`
+will execute the function pointed to by `p_help_function` if there are no command-line arguments.
+The `r_os` parameter allows any error messages to be re-directed to an
+alternative destination to `std::cerr`.
+
 `is_flag() const` tests if the currently selected parameter looks like a flag.
 Flags can start with `-` or `--`.
 
@@ -212,15 +217,7 @@ there are more arguments available.
 
 Example usage:
 
-    clutils::CommandLineArgs cla( argc, argv );
-
-    if( ! cla )
-    {
-        help();
-        return false;
-    }
-
-    for( ; cla; ++cla )
+    for( clutils::CommandLineArgs cla( argc, argv, &help ); cla; ++cla )
     {
         if( cla.is_flag( "h", "?" ) )
         {

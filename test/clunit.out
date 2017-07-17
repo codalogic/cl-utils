@@ -1,9 +1,13 @@
-Tests run on Mon Jul 17 12:03:09 2017
+Tests run on Mon Jul 17 12:58:22 2017
 
-    CommandLineArgs [test-command-line-args.cpp:86]
+    CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
       : CommandLineArgs cla( SIZED_ARGV( argv_none ) )
     ok: cla == false
+    ok: cla.empty()
+      : is_fake_help_run = false
+      : CommandLineArgs cla( SIZED_ARGV( argv_none ), fake_help )
+    ok: is_fake_help_run == true
     ok: cla.empty()
       : CommandLineArgs cla( SIZED_ARGV( argv_none ) )
     ok: cla.empty()
@@ -493,4 +497,4 @@ Tests run on Mon Jul 17 12:03:09 2017
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 382 test(s)
+0 error(s), 0 todo(s), 384 test(s)

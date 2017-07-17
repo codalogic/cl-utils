@@ -40,6 +40,12 @@ using namespace clutils;
 #define N( av ) (sizeof( av ) / sizeof( av[0] ))
 #define SIZED_ARGV( x ) N( x ), x
 
+bool is_fake_help_run = false;
+void fake_help()
+{
+    is_fake_help_run = true;
+}
+
 char * argv_none[] = {
     "Prog name - unused"
     };
@@ -88,6 +94,13 @@ TFEATURE( "CommandLineArgs" )
     {
     TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_none ) ) );
     TTEST( cla == false );
+    TTEST( cla.empty() );
+    }
+
+    {
+    TSETUP( is_fake_help_run = false );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_none ), fake_help ) );
+    TTEST( is_fake_help_run == true );
     TTEST( cla.empty() );
     }
 

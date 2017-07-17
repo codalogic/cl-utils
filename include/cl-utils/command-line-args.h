@@ -58,6 +58,13 @@ public:
     {
         next();
     }
+    CommandLineArgs( int argc, char ** argv, void (*p_help_function)(), std::ostream & r_os = std::cerr )
+        : argc( argc ), argv( argv ), r_os( r_os )
+    {
+        next();
+        if( empty() )
+            (*p_help_function)();
+    }
 
     bool is_flag() const      // Is a flag as opposed to a value etc
     {
