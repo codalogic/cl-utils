@@ -1,6 +1,6 @@
-Tests run on Fri Jul 14 17:51:25 2017
+Tests run on Mon Jul 17 10:36:13 2017
 
-    CommandLineArgs [test-command-line-args.cpp:72]
+    CommandLineArgs [test-command-line-args.cpp:79]
     ===============================================
     ok: cla == false
     ok: cla.empty()
@@ -10,10 +10,10 @@ Tests run on Fri Jul 14 17:51:25 2017
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
-    ok: cla.is_flag( "-?" )
-    ok: cla.is_flag( "-h", "-?" )
-    ok: cla.is_flag( "-?", "-h" )
-    ok: cla.is_flag( "-other" ) == false
+    ok: cla.is_flag( "?" )
+    ok: cla.is_flag( "h", "?" )
+    ok: cla.is_flag( "?", "h" )
+    ok: cla.is_flag( "other" ) == false
       : cla.next()
     ok: cla.empty()
     ok: cla == true
@@ -27,19 +27,24 @@ Tests run on Fri Jul 14 17:51:25 2017
     ok: cla.empty()
     ok: cla == true
     ok: ! cla.empty()
+    ok: cla.is_flag() == false
+    ok: cla.is_flag( "y-file.txt" ) == false
+    ok: cla.is_flag( "xmy-file.txt" ) == false
+    ok: cla == true
+    ok: ! cla.empty()
     ok: cla.is_flag()
-    ok: cla.is_flag( "-o" )
-    ok: cla.is_flag( "-o", 0 )
-    ok: cla.is_flag( "-o", 1 )
+    ok: cla.is_flag( "o" )
+    ok: cla.is_flag( "o", 0 )
+    ok: cla.is_flag( "o", 1 )
     ok: cla.next() == std::string( "my-file.txt" )
       : cla.next()
     ok: cla.empty()
-    ok: cla.is_flag( "-o", 2 ) == false
+    ok: cla.is_flag( "o", 2 ) == false
     ok: cla.empty()
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
-    ok: cla.is_flag( "-o", 1 )
+    ok: cla.is_flag( "o", 1 )
     ok: cla.next() == std::string( "my-file.txt" )
       : cla.next()
     ok: ! cla.empty()
@@ -48,26 +53,46 @@ Tests run on Fri Jul 14 17:51:25 2017
     ok: cla.empty()
     ok: cla == true
     ok: ! cla.empty()
-    ok: cla.is_flag( "-o" )
+    ok: cla.is_flag()
+    ok: cla.is_flag( "output", 1 )
+    ok: cla.next() == std::string( "my-file.txt" )
+      : cla.next()
+    ok: ! cla.empty()
+    ok: cla.current() == std::string( "my-other-file.txt" )
+      : cla.next()
+    ok: cla.empty()
+    ok: cla == true
+    ok: ! cla.empty()
+    ok: cla.is_flag()
+    ok: cla.is_flag( "o", "output", 1 )
+    ok: cla.next() == std::string( "my-file.txt" )
+      : cla.next()
+    ok: ! cla.empty()
+    ok: cla.current() == std::string( "my-other-file.txt" )
+      : cla.next()
+    ok: cla.empty()
+    ok: cla == true
+    ok: ! cla.empty()
+    ok: cla.is_flag( "o" )
     ok: cla.ensure( 2, "-o flag requires 2 parameters" )
-    ok: cla.is_flag( "-o", 2, "-o flag requires 2 parameters" )
+    ok: cla.is_flag( "o", 2, "-o flag requires 2 parameters" )
     ok: cla.next() == std::string( "my-file.txt" )
     ok: cla.next() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
     ok: cla
-    ok: cla.is_flag( "-o" )
+    ok: cla.is_flag( "o" )
     ok: cla.ensure( 3 ) == false
     ok: cla.empty()
     ok: cla
-    ok: cla.is_flag( "-o", 3 ) == false
+    ok: cla.is_flag( "o", 3 ) == false
     ok: cla.empty()
     ok: cla
-    ok: cla.is_flag( "-o" )
+    ok: cla.is_flag( "o" )
     ok: cla.ensure( 3, "-o flag requires 3 parameters" ) == false
     ok: cla.empty()
     ok: cla
-    ok: cla.is_flag( "-o", 3, "-o flag requires 3 parameters" ) == false
+    ok: cla.is_flag( "o", 3, "-o flag requires 3 parameters" ) == false
     ok: cla.empty()
     ok: cla
     ok: cla.ensure( 1 ) == false
@@ -426,4 +451,4 @@ Tests run on Fri Jul 14 17:51:25 2017
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 338 test(s)
+0 error(s), 0 todo(s), 359 test(s)

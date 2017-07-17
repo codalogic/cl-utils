@@ -62,7 +62,7 @@ public:
     }
     bool is_flag( const char * p_option_1 ) const  // Is a specified flag
     {
-        return strcmp( p_option_1, *argv ) == 0;
+        return is_flag() && strcmp( p_option_1, (*argv) + 1 ) == 0;
     }
     bool is_flag( const char * p_option_1, int desired_extra_count, const char * p_on_insufficient_message = 0 )  // Is a specified flag
     {
@@ -72,7 +72,7 @@ public:
     }
     bool is_flag( const char * p_option_1, const char * p_option_2 ) const
     {
-        return strcmp( p_option_1, *argv ) == 0 || strcmp( p_option_2, *argv ) == 0;
+        return is_flag( p_option_1 ) || is_flag( p_option_2 );
     }
     bool is_flag( const char * p_option_1, const char * p_option_2, int desired_extra_count, const char * p_on_insufficient_message = 0 )
     {
