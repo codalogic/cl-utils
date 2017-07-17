@@ -49,9 +49,11 @@ class CommandLineArgs
 private:
     int argc;
     char ** argv;
+    std::ostream & r_os;
 
 public:
-    CommandLineArgs( int argc, char ** argv ) : argc( argc ), argv( argv )
+    CommandLineArgs( int argc, char ** argv, std::ostream & r_os = std::cerr )
+        : argc( argc ), argv( argv ), r_os( r_os )
     {
         next();
     }
@@ -62,14 +64,7 @@ public:
     }
     bool is_flag( const char * p_option_1 ) const  // Is a specified flag
     {
-        if( is_flag() )
-        {
-            const char * p_flag = (*argv) + 1;
-            if( *p_flag == '-' )    // Allow for '--flag'
-                ++p_flag;
-            return strcmp( p_option_1, p_flag ) == 0;
-        }
-        return false;
+        return is_flag() && strcmp( p_option_1, flag_name() ) == 0;
     }
     bool is_flag( const char * p_option_1, int desired_extra_count, const char * p_on_insufficient_message = 0 )  // Is a specified flag
     {
@@ -92,9 +87,9 @@ public:
         if( (argc - 1) < desired_extra_count )
         {
             if( p_on_insufficient_message )
-                std::cout << p_on_insufficient_message << "\n";
+                r_os << p_on_insufficient_message << "\n";
             else
-                std::cout << *argv << " requires " << desired_extra_count <<
+                r_os << *argv << " requires " << desired_extra_count <<
                         " additional parameter" << ((desired_extra_count == 1)?"":"s") << "\n";
             argc = 0;   // Stop trying to process remaining insufficient set of arguments
             return false;
@@ -102,11 +97,22 @@ public:
         return true;
     }
     const char * current() const { return *argv; }
+    const char * flag() const { return is_flag() ? flag_name() : ""; }
+    const char * flag_marker() const { return ! is_flag() ? "" : (*((*argv) + 1) == '-') ? "--" : "-"; }
     const char * next() { if( argc > 0 ) { ++argv; --argc; } return *argv; }
     void operator ++ () { next(); }
     void operator ++ (int) { next(); }
     bool empty() const { return argc <= 0; }
     operator bool () { return ! empty(); }
+
+private:
+    const char * flag_name() const
+    {
+        const char * p_flag = (*argv) + 1;
+        if( *p_flag == '-' )    // Allow for '--flag'
+            ++p_flag;
+        return p_flag;
+    }
 };
 
 } // namespace clutils
