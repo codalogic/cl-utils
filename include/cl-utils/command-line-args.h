@@ -62,7 +62,14 @@ public:
     }
     bool is_flag( const char * p_option_1 ) const  // Is a specified flag
     {
-        return is_flag() && strcmp( p_option_1, (*argv) + 1 ) == 0;
+        if( is_flag() )
+        {
+            const char * p_flag = (*argv) + 1;
+            if( *p_flag == '-' )    // Allow for '--flag'
+                ++p_flag;
+            return strcmp( p_option_1, p_flag ) == 0;
+        }
+        return false;
     }
     bool is_flag( const char * p_option_1, int desired_extra_count, const char * p_on_insufficient_message = 0 )  // Is a specified flag
     {

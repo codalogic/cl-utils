@@ -75,6 +75,13 @@ char * argv_long_flag_and_file_names[] = {
     "my-other-file.txt"
     };
 
+char * argv_double_dash_flag_and_file_names[] = {
+    "Prog name - unused",
+    "--output",
+    "my-file.txt",
+    "my-other-file.txt"
+    };
+
 
 TFEATURE( "CommandLineArgs" )
 {
@@ -177,6 +184,20 @@ TFEATURE( "CommandLineArgs" )
 
     {
     CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) );
+    TTEST( cla == true );
+    TTEST( ! cla.empty() );
+    TTEST( cla.is_flag() );
+    TTEST( cla.is_flag( "o", "output", 1 ) );
+    TTEST( cla.next() == std::string( "my-file.txt" ) );
+    TSETUP( cla.next() );
+    TTEST( ! cla.empty() );
+    TTEST( cla.current() == std::string( "my-other-file.txt" ) );
+    TSETUP( cla.next() );
+    TTEST( cla.empty() );
+    }
+
+    {
+    CommandLineArgs cla( SIZED_ARGV( argv_double_dash_flag_and_file_names ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );

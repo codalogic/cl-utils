@@ -1,6 +1,6 @@
-Tests run on Mon Jul 17 10:36:13 2017
+Tests run on Mon Jul 17 10:43:01 2017
 
-    CommandLineArgs [test-command-line-args.cpp:79]
+    CommandLineArgs [test-command-line-args.cpp:86]
     ===============================================
     ok: cla == false
     ok: cla.empty()
@@ -55,6 +55,16 @@ Tests run on Mon Jul 17 10:36:13 2017
     ok: ! cla.empty()
     ok: cla.is_flag()
     ok: cla.is_flag( "output", 1 )
+    ok: cla.next() == std::string( "my-file.txt" )
+      : cla.next()
+    ok: ! cla.empty()
+    ok: cla.current() == std::string( "my-other-file.txt" )
+      : cla.next()
+    ok: cla.empty()
+    ok: cla == true
+    ok: ! cla.empty()
+    ok: cla.is_flag()
+    ok: cla.is_flag( "o", "output", 1 )
     ok: cla.next() == std::string( "my-file.txt" )
       : cla.next()
     ok: ! cla.empty()
@@ -451,4 +461,4 @@ Tests run on Mon Jul 17 10:36:13 2017
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 359 test(s)
+0 error(s), 0 todo(s), 367 test(s)
