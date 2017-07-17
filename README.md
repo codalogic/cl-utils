@@ -149,23 +149,53 @@ Create an instance of the class as follows:
 
 It has the following methods:
 
+`CommandLineArgs( int argc, char ** argv, std::ostream & r_os = std::cerr )` is
+the constructor. The `r_os` parameter allows any error messages to be
+re-directed to an alternative destination to `std::cerr`.
+
 `is_flag()` tests if the currently selected parameter looks like a flag.
+Flags can start with `-` or `--`.
 
-`bool is_flag( const char * p_option_1, int desired_extra_count = 0 )` tests if the current
-parameter matches the specified flag.  If `desired_extra_count` is specified
-then that many additional arguments (not including the current one) must be
-available to process.
+`is_flag( const char * p_option_1 ) const` tests if the current input flag
+matches `p_option_1`.  Do NOT include the flag marker `-` character(s) in
+`p_option_1`.  e.g. use `is_flag( "o" )`.
 
-`is_flag( const char * p_option_1, const char * p_option_2, int desired_extra_count = 0 )` is
-similar to `is_flag( const char * p_option_1, int desired_extra_count = 0 )`, but tests for a
-flag to be either of the two specified options.
+`is_flag( const char * p_option_1, const char * p_option_2 )` tests if the
+current input flag is either `p_option_1` or `p_option_2`.
 
-`bool ensure( int desired_extra_count, const char * p_on_insufficient_message )` tests
+`is_flag( const char * p_option_1, int desired_extra_count, const char * p_on_insufficient_message = 0 )`
+tests if the current input flag is `p_option_1` and that there are a minimum of
+`desired_extra_count` additional input parameters available for processing.
+If there are insufficient parameters, if present, the `p_on_insufficient_message`
+error message will be written to `r_os` as setup during construction and the
+set of input flags will be deemed `empty()`.
+
+`is_flag( const char * p_option_1, const char * p_option_2, int desired_extra_count, const char * p_on_insufficient_message = 0 )`
+is similar to the previous method, but allows matching of either `p_option_1`
+or `p_option_2`.
+
+`bool ensure( int desired_extra_count, const char * p_on_insufficient_message = 0 )` tests
 that there are `desired_extra_count` extra arguments after the current argument.
-If not, the error message is displayed, and the remaining argument count is set
-to `0`.
+If not, the error message is output to `r_os` as setup during construction,
+and the remaining argument count is set to `0`.
 
 `current()` returns a pointer to the current parameter.
+
+`flag_marker()` returns either `-` or `--` depending on which of these two the
+current flag was indicated by.  If the input is deemed not to be a flag, then
+it returns an empty string.
+
+`flag_name()` returns the name of the current input flag.  For example, it
+return `output` if the input flag is `--output`.  If the input is deemed not
+to be a flag, then it returns an empty string.
+
+`flag()` returns the combination of `flag_marker()` and `flag_name()`.  This
+is the preferred method to using `current()` for displaying the name of the
+current input flag.  (In future it is hoped to support grouped short flags,
+such as in `tar -xvf foo`, and `flag()` will hopefully be able to return
+`-v` on handling the second flag. Hence the result of `flag()` may actually
+be computed based on the current state, rather than refer directly to any
+input.)
 
 `next()` moves to the next parameter and returns a pointer to it.  `++` on the
 object may also be used.
@@ -187,15 +217,15 @@ Example usage:
 
     for( ; cla; ++cla )
     {
-        if( cla.is_flag( "-h", "-?" ) )
+        if( cla.is_flag( "h", "?" ) )
         {
             help();
             return false;
         }
-        else if( cla.is_flag( "-json" ) && cla.ensure( 2, "-json flag must include name of JSON file to validate" ) )
+        else if( cla.is_flag( "json", 1, "-json flag must include name of JSON file to validate" ) )
             p_config->set_json( cla.next() );
         else if( cla.is_flag() )
-            std::cout << "Unknown flag: " << cla.current() << "\n";
+            std::cerr << "Unknown flag: " << cla.flag() << "\n";
         else
             p_config->add_jcr( cla.current() );
     }
