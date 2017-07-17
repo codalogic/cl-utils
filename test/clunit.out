@@ -1,12 +1,15 @@
-Tests run on Mon Jul 17 10:43:01 2017
+Tests run on Mon Jul 17 11:11:26 2017
 
     CommandLineArgs [test-command-line-args.cpp:86]
     ===============================================
+      : CommandLineArgs cla( SIZED_ARGV( argv_none ) )
     ok: cla == false
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_none ) )
     ok: cla.empty()
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_help ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
@@ -16,6 +19,7 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.is_flag( "other" ) == false
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag() == false
@@ -25,11 +29,13 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.current() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag() == false
     ok: cla.is_flag( "y-file.txt" ) == false
     ok: cla.is_flag( "xmy-file.txt" ) == false
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
@@ -39,8 +45,10 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.next() == std::string( "my-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) )
     ok: cla.is_flag( "o", 2 ) == false
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
@@ -51,6 +59,7 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.current() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
@@ -61,6 +70,7 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.current() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
@@ -71,6 +81,7 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.current() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_double_dash_flag_and_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag()
@@ -81,6 +92,7 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.current() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) )
     ok: cla == true
     ok: ! cla.empty()
     ok: cla.is_flag( "o" )
@@ -90,20 +102,25 @@ Tests run on Mon Jul 17 10:43:01 2017
     ok: cla.next() == std::string( "my-other-file.txt" )
       : cla.next()
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) )
     ok: cla
     ok: cla.is_flag( "o" )
     ok: cla.ensure( 3 ) == false
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) )
     ok: cla
     ok: cla.is_flag( "o", 3 ) == false
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) )
     ok: cla
     ok: cla.is_flag( "o" )
     ok: cla.ensure( 3, "-o flag requires 3 parameters" ) == false
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) )
     ok: cla
     ok: cla.is_flag( "o", 3, "-o flag requires 3 parameters" ) == false
     ok: cla.empty()
+      : CommandLineArgs cla( SIZED_ARGV( argv_help ) )
     ok: cla
     ok: cla.ensure( 1 ) == false
     ok: cla.empty()

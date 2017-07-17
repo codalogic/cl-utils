@@ -86,21 +86,21 @@ char * argv_double_dash_flag_and_file_names[] = {
 TFEATURE( "CommandLineArgs" )
 {
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_none ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_none ) ) );
     TTEST( cla == false );
     TTEST( cla.empty() );
     }
 
-    // Test resilience to calling next too many times
+    // Test resilience to calling next() too many times
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_none ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_none ) ) );
     TTEST( cla.empty() );
     TSETUP( cla.next() );
     TTEST( cla.empty() );
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_help ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_help ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
@@ -113,7 +113,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() == false );
@@ -127,7 +127,7 @@ TFEATURE( "CommandLineArgs" )
 
     {
     // Test for sufficient rigor of flag testing
-    CommandLineArgs cla( SIZED_ARGV( argv_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() == false );
@@ -136,7 +136,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
@@ -149,13 +149,13 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_single_file_name ) ) );
     TTEST( cla.is_flag( "o", 2 ) == false );  // Test sufficient arguments check
     TTEST( cla.empty() );
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
@@ -169,7 +169,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
@@ -183,7 +183,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_long_flag_and_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
@@ -197,7 +197,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_double_dash_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_double_dash_flag_and_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag() );
@@ -211,7 +211,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) ) );
     TTEST( cla == true );
     TTEST( ! cla.empty() );
     TTEST( cla.is_flag( "o" ) );
@@ -224,7 +224,7 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) ) );
     TTEST( cla );
     TTEST( cla.is_flag( "o" ) );
     TTEST( cla.ensure( 3 ) == false );  // Test sufficient arguments check
@@ -232,14 +232,14 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) ) );
     TTEST( cla );
     TTEST( cla.is_flag( "o", 3 ) == false );  // Test sufficient arguments check
     TTEST( cla.empty() );
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) ) );
     TTEST( cla );
     TTEST( cla.is_flag( "o" ) );
     TTEST( cla.ensure( 3, "-o flag requires 3 parameters" ) == false );  // Test sufficient arguments check
@@ -247,14 +247,14 @@ TFEATURE( "CommandLineArgs" )
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_flag_and_file_names ) ) );
     TTEST( cla );
     TTEST( cla.is_flag( "o", 3, "-o flag requires 3 parameters" ) == false );  // Test sufficient arguments check
     TTEST( cla.empty() );
     }
 
     {
-    CommandLineArgs cla( SIZED_ARGV( argv_help ) );
+    TSETUP( CommandLineArgs cla( SIZED_ARGV( argv_help ) ) );
     TTEST( cla );
     TTEST( cla.ensure( 1 ) == false );  // Test sufficient arguments check
     TTEST( cla.empty() );
