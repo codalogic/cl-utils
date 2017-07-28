@@ -32,15 +32,15 @@
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// CircularBuffer implementes a circular buffer.  It is stack-like in
-// behaviour in that you can `push` data onto the top of it, look at the `top`
-// and `pop` stuff from the top.  However, once the buffer is full, when you
-// push stuff onto the top of the stack, the item at the bottom of the stack
-// is discarded.
+// HistoryBuffer implementes a history recording mechanism that allows you to
+// move forwards and backwards.  It is stack-like in behaviour in that you
+// can `push` data onto the top of it.  However, once the buffer is full, when
+// you push stuff onto the top of the stack, the item at the bottom of the
+// stack is discarded.
 //----------------------------------------------------------------------------
 
-#ifndef CL_UTILS__CIRCULAR_BUFFER
-#define CL_UTILS__CIRCULAR_BUFFER
+#ifndef CL_UTILS__HISTORY_BUFFER
+#define CL_UTILS__HISTORY_BUFFER
 
 #include <vector>
 #include <cassert>
@@ -48,53 +48,61 @@
 namespace clutils {
 
 template< typename T >
-class CircularBuffer
+class HistoryBuffer
 {
 private:
     struct Members {
         std::vector< T > buffer;
         size_t top;     // top points to the next free location. i.e. one above the active top of the stack
+        size_t pos;     // pos points to the next location. i.e. one above the active location
         size_t bottom;
-        Members() : top( 0 ), bottom( 0 ) {}
+        Members() : top( 0 ), pos( 0 ), bottom( 0 ) {}
     } m;
 
 public:
-    CircularBuffer( size_t buffer_size )
+    HistoryBuffer( size_t buffer_size )
     {
         m.buffer.reserve( buffer_size + 1 );    // We use an extra place, so when the buffer has buffer_size members we can tell if it's full or empty
     }
-    bool empty() const { return m.top == m.bottom; }
     void push( const T & v )
     {
-        if( m.buffer.size() < m.buffer.capacity() )
+        if( m.top == m.pos && m.buffer.size() < m.buffer.capacity() )
             m.buffer.push_back( v );
         else
-            m.buffer[m.top] = v;
-        m.top = (m.top + 1) % m.buffer.capacity();
-        if( m.top == m.bottom )
+            m.buffer[m.pos] = v;
+        m.top = m.pos = (m.pos + 1) % m.buffer.capacity();
+        if( m.pos == m.bottom )
             m.bottom = (m.bottom + 1) % m.buffer.capacity();
     }
-    const T & top() const
+    bool has_back() const { return m.pos != m.bottom && m.pos != (m.bottom + 1) % m.buffer.capacity(); }
+    void go_back()
     {
-        assert( ! empty() );
-        if( m.top == 0 )    // Can't use modulo arithmetic when doing unsigned subtraction
+        assert( has_back() );
+        if( has_back() )
+        {
+            if( m.pos == 0 )    // Can't use modulo arithmetic when doing unsigned subtraction
+                m.pos = m.buffer.capacity() - 1;
+            else
+                --m.pos;
+        }
+    }
+    bool has_frwd() const { return m.pos != m.top; }
+    void go_frwd()
+    {
+        assert( has_frwd() );
+        if( has_frwd() )
+            m.pos = (m.pos + 1) % m.buffer.capacity();
+    }
+    const T & get() const
+    {
+        assert( m.pos != m.bottom );
+        if( m.pos == 0 )    // Can't use modulo arithmetic when doing unsigned subtraction
             return m.buffer[m.buffer.capacity() - 1];
         else
-            return m.buffer[m.top - 1];
-    }
-    void pop()
-    {
-        assert( ! empty() );
-        if( ! empty() )
-        {
-            if( m.top == 0 )    // Can't use modulo arithmetic when doing unsigned subtraction
-                m.top = m.buffer.capacity() - 1;
-            else
-                --m.top;
-        }
+            return m.buffer[m.pos - 1];
     }
 };
 
 } // namespace clutils
 
-#endif // CL_UTILS__CIRCULAR_BUFFER
+#endif // CL_UTILS__HISTORY_BUFFER

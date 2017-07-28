@@ -17,4 +17,4 @@ $strand angst
 
 versions    # Invoking 'versions' must happen after setting up $owner/$project variables
 
-get include/cl-utils/circular-buffer.h   ${cl_utils_h_dst}
+get include/cl-utils/history-buffer.h   ${cl_utils_h_dst}

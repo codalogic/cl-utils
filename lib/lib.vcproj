@@ -162,11 +162,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\cl-utils\circular-buffer.h"
+				RelativePath="..\include\cl-utils\command-line-args.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\cl-utils\command-line-args.h"
+				RelativePath="..\include\cl-utils\history-buffer.h"
 				>
 			</File>
 			<File

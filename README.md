@@ -232,29 +232,28 @@ Example usage:
             p_config->add_jcr( cla.current() );
     }
 
-CircularBuffer
+HistoryBuffer
 --------------
 
-`CircularBuffer` is a template class that implementes a circular buffer.
-It has stack-like in behaviour in that you can `push` data onto the top of
-it, look at the `top`, and `pop` stuff from the top.  However, once the
-buffer is full, when you push stuff onto the top of the stack, the item
-at the bottom of the stack is discarded.
+`HistoryBuffer` is a template class that implements recording of recent
+history.
+
+You can `push()` data to be the most recent history and use `get()` to get
+the currently selected history.
+
+You can use `go_back()` and `go_frwd()` to change the place in history that
+`get()` will read from.
+
+`has_back()` returns `true` if you can `go_back()` and `has_frwd()` returns
+`true` if you can `go_frwd()`.
+
+If you `push()`, that will be the most recent history and you will not be
+able to `go_frwd()` from that point without first doing `go_back()`.
+
+If the buffer is full when you `push()`, the oldest history will be
+overwritten.
 
 The size of the buffer is specified at construction.  e.g. the following
 will construct a buffer of `10` locations:
 
-    CircularBuffer< size_t > cb( 10 )
-
-`empty()` returns `true` if the buffer is empty, `false` otherwise.
-
-`void push( const T & v )` pushes a value into the buffer.
-
-`const T & top() const` returns the value at the top of the stack.
-It does NOT change the stack pointers.  Multiple consecutive calls
-to `top()` without any intervening `pop()` or `push()` calls will
-return the same value.  (Calling `top()` when the buffer is empty
-results in undefined behaviour.)
-
-`void pop()` discards to value at the top of the stack.  It does not
-returned to the calling function. (Call `top()` first to do that.)
+    HistoryBuffer< size_t > hb( 10 )

@@ -177,11 +177,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\test-circular-buffer.cpp"
+				RelativePath=".\test-command-line-args.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\test-command-line-args.cpp"
+				RelativePath=".\test-history-buffer.cpp"
 				>
 			</File>
 			<File

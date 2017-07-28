@@ -1,4 +1,200 @@
-Tests run on Fri Jul 28 13:41:25 2017
+Tests run on Fri Jul 28 16:08:23 2017
+
+    HistoryBuffer [test-history-buffer.cpp:40]
+    ==========================================
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+    ok: hb.has_back() == false
+    ok: ! hb.has_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'b'
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'b'
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+    ok: hb.has_frwd() == true
+      : hb.go_frwd()
+    ok: hb.get() == 'b'
+    ok: hb.has_frwd() == false
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'b'
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+    ok: hb.has_frwd() == true
+      : hb.push( 'c' )
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'c'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+      : hb.push( 'e' )
+      : hb.push( 'f' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+      : hb.push( 'e' )
+      : hb.push( 'f' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'g' )
+    ok: hb.get() == 'g'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'h' )
+      : hb.push( 'i' )
+    ok: hb.get() == 'i'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'h'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+      : hb.push( 'e' )
+      : hb.push( 'f' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'g' )
+    ok: hb.get() == 'g'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'h' )
+      : hb.push( 'i' )
+    ok: hb.get() == 'i'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'h'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: ! hb.has_back()
+      : HistoryBuffer<char> hb( 4 )
+    ok: hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'd'
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: hb.get() == 'c'
+    ok: hb.has_back() == true
+    ok: hb.has_frwd() == true
+      : hb.push( 'e' )
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'e'
+      : hb.push( 'f' )
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'b'
+    ok: ! hb.has_back()
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -496,138 +692,5 @@ Tests run on Fri Jul 28 13:41:25 2017
     ok: trim( &s ) == out
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
-
-    CircularBuffer [test-circular-buffer.cpp:40]
-    ============================================
-      : CircularBuffer<char> cb( 4 )
-    ok: cb.empty()
-      : cb.push( 'a' )
-    ok: cb.empty() == false
-    ok: ! cb.empty()
-    ok: cb.top() == 'a'
-    ok: cb.top() == 'a'
-      : cb.pop()
-    ok: cb.empty()
-      : CircularBuffer<char> cb( 4 )
-    ok: cb.empty()
-      : cb.push( 'a' )
-      : cb.push( 'b' )
-    ok: cb.empty() == false
-    ok: ! cb.empty()
-    ok: cb.top() == 'b'
-    ok: cb.top() == 'b'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'a'
-    ok: cb.top() == 'a'
-      : cb.pop()
-    ok: cb.empty()
-      : CircularBuffer<char> cb( 4 )
-      : cb.push( 'a' )
-      : cb.push( 'b' )
-      : cb.push( 'c' )
-      : cb.push( 'd' )
-    ok: cb.empty() == false
-    ok: ! cb.empty()
-    ok: cb.top() == 'd'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'c'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'b'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'a'
-      : cb.pop()
-    ok: cb.empty()
-      : CircularBuffer<char> cb( 4 )
-      : cb.push( 'a' )
-      : cb.push( 'b' )
-      : cb.push( 'c' )
-      : cb.push( 'd' )
-      : cb.push( 'e' )
-      : cb.push( 'f' )
-    ok: cb.empty() == false
-    ok: ! cb.empty()
-    ok: cb.top() == 'f'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'e'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'd'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'c'
-      : cb.pop()
-    ok: cb.empty()
-      : CircularBuffer<char> cb( 4 )
-      : cb.push( 'a' )
-      : cb.push( 'b' )
-      : cb.push( 'c' )
-      : cb.push( 'd' )
-      : cb.push( 'e' )
-      : cb.push( 'f' )
-    ok: cb.empty() == false
-    ok: ! cb.empty()
-    ok: cb.top() == 'f'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'e'
-      : cb.pop()
-      : cb.push( 'g' )
-    ok: ! cb.empty()
-    ok: cb.top() == 'g'
-      : cb.pop()
-      : cb.push( 'h' )
-      : cb.push( 'i' )
-    ok: ! cb.empty()
-    ok: cb.top() == 'i'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'h'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'd'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'c'
-      : cb.pop()
-    ok: cb.empty()
-      : CircularBuffer<char> cb( 4 )
-      : cb.push( 'a' )
-      : cb.push( 'b' )
-      : cb.push( 'c' )
-      : cb.push( 'd' )
-      : cb.push( 'e' )
-      : cb.push( 'f' )
-    ok: cb.empty() == false
-    ok: ! cb.empty()
-    ok: cb.top() == 'f'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'e'
-      : cb.pop()
-      : cb.push( 'g' )
-    ok: ! cb.empty()
-    ok: cb.top() == 'g'
-      : cb.pop()
-      : cb.push( 'h' )
-      : cb.push( 'i' )
-    ok: ! cb.empty()
-    ok: cb.top() == 'i'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'h'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'd'
-      : cb.pop()
-    ok: ! cb.empty()
-    ok: cb.top() == 'c'
-      : cb.pop()
-    ok: cb.empty()
-    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 452 test(s)
+0 error(s), 0 todo(s), 498 test(s)
