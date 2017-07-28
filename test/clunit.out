@@ -1,4 +1,4 @@
-Tests run on Mon Jul 17 12:58:22 2017
+Tests run on Fri Jul 28 13:41:25 2017
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -496,5 +496,138 @@ Tests run on Mon Jul 17 12:58:22 2017
     ok: trim( &s ) == out
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    CircularBuffer [test-circular-buffer.cpp:40]
+    ============================================
+      : CircularBuffer<char> cb( 4 )
+    ok: cb.empty()
+      : cb.push( 'a' )
+    ok: cb.empty() == false
+    ok: ! cb.empty()
+    ok: cb.top() == 'a'
+    ok: cb.top() == 'a'
+      : cb.pop()
+    ok: cb.empty()
+      : CircularBuffer<char> cb( 4 )
+    ok: cb.empty()
+      : cb.push( 'a' )
+      : cb.push( 'b' )
+    ok: cb.empty() == false
+    ok: ! cb.empty()
+    ok: cb.top() == 'b'
+    ok: cb.top() == 'b'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'a'
+    ok: cb.top() == 'a'
+      : cb.pop()
+    ok: cb.empty()
+      : CircularBuffer<char> cb( 4 )
+      : cb.push( 'a' )
+      : cb.push( 'b' )
+      : cb.push( 'c' )
+      : cb.push( 'd' )
+    ok: cb.empty() == false
+    ok: ! cb.empty()
+    ok: cb.top() == 'd'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'c'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'b'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'a'
+      : cb.pop()
+    ok: cb.empty()
+      : CircularBuffer<char> cb( 4 )
+      : cb.push( 'a' )
+      : cb.push( 'b' )
+      : cb.push( 'c' )
+      : cb.push( 'd' )
+      : cb.push( 'e' )
+      : cb.push( 'f' )
+    ok: cb.empty() == false
+    ok: ! cb.empty()
+    ok: cb.top() == 'f'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'e'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'd'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'c'
+      : cb.pop()
+    ok: cb.empty()
+      : CircularBuffer<char> cb( 4 )
+      : cb.push( 'a' )
+      : cb.push( 'b' )
+      : cb.push( 'c' )
+      : cb.push( 'd' )
+      : cb.push( 'e' )
+      : cb.push( 'f' )
+    ok: cb.empty() == false
+    ok: ! cb.empty()
+    ok: cb.top() == 'f'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'e'
+      : cb.pop()
+      : cb.push( 'g' )
+    ok: ! cb.empty()
+    ok: cb.top() == 'g'
+      : cb.pop()
+      : cb.push( 'h' )
+      : cb.push( 'i' )
+    ok: ! cb.empty()
+    ok: cb.top() == 'i'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'h'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'd'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'c'
+      : cb.pop()
+    ok: cb.empty()
+      : CircularBuffer<char> cb( 4 )
+      : cb.push( 'a' )
+      : cb.push( 'b' )
+      : cb.push( 'c' )
+      : cb.push( 'd' )
+      : cb.push( 'e' )
+      : cb.push( 'f' )
+    ok: cb.empty() == false
+    ok: ! cb.empty()
+    ok: cb.top() == 'f'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'e'
+      : cb.pop()
+      : cb.push( 'g' )
+    ok: ! cb.empty()
+    ok: cb.top() == 'g'
+      : cb.pop()
+      : cb.push( 'h' )
+      : cb.push( 'i' )
+    ok: ! cb.empty()
+    ok: cb.top() == 'i'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'h'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'd'
+      : cb.pop()
+    ok: ! cb.empty()
+    ok: cb.top() == 'c'
+      : cb.pop()
+    ok: cb.empty()
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 384 test(s)
+0 error(s), 0 todo(s), 452 test(s)

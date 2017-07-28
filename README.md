@@ -231,3 +231,30 @@ Example usage:
         else
             p_config->add_jcr( cla.current() );
     }
+
+CircularBuffer
+--------------
+
+`CircularBuffer` is a template class that implementes a circular buffer.
+It has stack-like in behaviour in that you can `push` data onto the top of
+it, look at the `top`, and `pop` stuff from the top.  However, once the
+buffer is full, when you push stuff onto the top of the stack, the item
+at the bottom of the stack is discarded.
+
+The size of the buffer is specified at construction.  e.g. the following
+will construct a buffer of `10` locations:
+
+    CircularBuffer< size_t > cb( 10 )
+
+`empty()` returns `true` if the buffer is empty, `false` otherwise.
+
+`void push( const T & v )` pushes a value into the buffer.
+
+`const T & top() const` returns the value at the top of the stack.
+It does NOT change the stack pointers.  Multiple consecutive calls
+to `top()` without any intervening `pop()` or `push()` calls will
+return the same value.  (Calling `top()` when the buffer is empty
+results in undefined behaviour.)
+
+`void pop()` discards to value at the top of the stack.  It does not
+returned to the calling function. (Call `top()` first to do that.)
