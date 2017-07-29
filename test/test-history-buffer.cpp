@@ -234,4 +234,40 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'c' );
     TTEST( ! hb.has_back() );
     }
+    {
+    TDOC( "clear() method" );
+    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( hb.push( 'a' ) );
+    TSETUP( hb.push( 'b' ) );
+    TSETUP( hb.push( 'c' ) );
+    TSETUP( hb.push( 'd' ) );
+    TTEST( hb.has_back() == true );
+    TTEST( hb.get() == 'd' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 'c' );
+    TSETUP( hb.clear() );
+    TTEST( ! hb.has_frwd() );
+    TTEST( ! hb.has_back() );
+
+    // Check things work properly once cleared
+    TSETUP( hb.push( 'a' ) );
+    TSETUP( hb.push( 'b' ) );
+    TSETUP( hb.push( 'c' ) );
+    TSETUP( hb.push( 'd' ) );
+    TSETUP( hb.push( 'e' ) );
+    TTEST( hb.has_back() == true );
+    TTEST( hb.get() == 'e' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.has_back() == true );
+    TTEST( hb.get() == 'd' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 'c' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 'b' );
+    TTEST( ! hb.has_back() );
+    }
 }
