@@ -52,7 +52,6 @@ TFEATURE( "HistoryBuffer" )
     TTEST( ! hb.has_back() );
     TSETUP( hb.push( 'a' ) );
     TTEST( hb.has_back() == false );
-    TCRITICALTEST( ! hb.has_back() );
     TTEST( hb.get() == 'a' );
     TTEST( hb.get() == 'a' );
     TTEST( ! hb.has_back() );
@@ -126,7 +125,6 @@ TFEATURE( "HistoryBuffer" )
     TSETUP( hb.push( 'c' ) );
     TSETUP( hb.push( 'd' ) );
     TTEST( hb.has_back() == true );
-    TCRITICALTEST( hb.has_back() );
     TTEST( hb.get() == 'd' );
     TCRITICALTEST( hb.has_back() );
     TSETUP( hb.go_back() );
@@ -149,7 +147,6 @@ TFEATURE( "HistoryBuffer" )
     TSETUP( hb.push( 'e' ) );
     TSETUP( hb.push( 'f' ) );
     TTEST( hb.has_back() == true );
-    TCRITICALTEST( hb.has_back() );
     TTEST( hb.get() == 'f' );
     TCRITICALTEST( hb.has_back() );
     TSETUP( hb.go_back() );
@@ -172,7 +169,6 @@ TFEATURE( "HistoryBuffer" )
     TSETUP( hb.push( 'e' ) );
     TSETUP( hb.push( 'f' ) );
     TTEST( hb.has_back() == true );
-    TCRITICALTEST( hb.has_back() );
     TTEST( hb.get() == 'f' );
     TCRITICALTEST( hb.has_back() );
     TSETUP( hb.go_back() );
@@ -209,7 +205,6 @@ TFEATURE( "HistoryBuffer" )
     TSETUP( hb.push( 'e' ) );
     TSETUP( hb.push( 'f' ) );
     TTEST( hb.has_back() == true );
-    TCRITICALTEST( hb.has_back() );
     TTEST( hb.get() == 'f' );
     TCRITICALTEST( hb.has_back() );
     TSETUP( hb.go_back() );
