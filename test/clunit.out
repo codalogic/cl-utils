@@ -1,200 +1,4 @@
-Tests run on Fri Jul 28 16:08:23 2017
-
-    HistoryBuffer [test-history-buffer.cpp:40]
-    ==========================================
-      : HistoryBuffer<char> hb( 4 )
-    ok: ! hb.has_back()
-      : hb.push( 'a' )
-    ok: hb.has_back() == false
-    ok: ! hb.has_back()
-    ok: hb.get() == 'a'
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-    ok: ! hb.has_back()
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-    ok: hb.has_back() == true
-    ok: hb.get() == 'b'
-    ok: hb.get() == 'b'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'a'
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-    ok: ! hb.has_back()
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-    ok: hb.has_back() == true
-    ok: hb.get() == 'b'
-    ok: hb.get() == 'b'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'a'
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-    ok: hb.has_frwd() == true
-      : hb.go_frwd()
-    ok: hb.get() == 'b'
-    ok: hb.has_frwd() == false
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-    ok: ! hb.has_back()
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-    ok: hb.has_back() == true
-    ok: hb.get() == 'b'
-    ok: hb.get() == 'b'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'a'
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-    ok: hb.has_frwd() == true
-      : hb.push( 'c' )
-    ok: hb.has_frwd() == false
-    ok: hb.get() == 'c'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-      : hb.push( 'c' )
-      : hb.push( 'd' )
-    ok: hb.has_back() == true
-    ok: hb.has_back()
-    ok: hb.get() == 'd'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'c'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'b'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'a'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-      : hb.push( 'c' )
-      : hb.push( 'd' )
-      : hb.push( 'e' )
-      : hb.push( 'f' )
-    ok: hb.has_back() == true
-    ok: hb.has_back()
-    ok: hb.get() == 'f'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'e'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'd'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'c'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-      : hb.push( 'c' )
-      : hb.push( 'd' )
-      : hb.push( 'e' )
-      : hb.push( 'f' )
-    ok: hb.has_back() == true
-    ok: hb.has_back()
-    ok: hb.get() == 'f'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'e'
-    ok: hb.has_back()
-      : hb.go_back()
-      : hb.push( 'g' )
-    ok: hb.get() == 'g'
-    ok: hb.has_back()
-      : hb.go_back()
-      : hb.push( 'h' )
-      : hb.push( 'i' )
-    ok: hb.get() == 'i'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'h'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'd'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'c'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-      : hb.push( 'c' )
-      : hb.push( 'd' )
-      : hb.push( 'e' )
-      : hb.push( 'f' )
-    ok: hb.has_back() == true
-    ok: hb.has_back()
-    ok: hb.get() == 'f'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'e'
-    ok: hb.has_back()
-      : hb.go_back()
-      : hb.push( 'g' )
-    ok: hb.get() == 'g'
-    ok: hb.has_back()
-      : hb.go_back()
-      : hb.push( 'h' )
-      : hb.push( 'i' )
-    ok: hb.get() == 'i'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'h'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'd'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'c'
-    ok: ! hb.has_back()
-      : HistoryBuffer<char> hb( 4 )
-    ok: hb.has_back()
-      : hb.push( 'a' )
-      : hb.push( 'b' )
-      : hb.push( 'c' )
-      : hb.push( 'd' )
-    ok: hb.has_back() == true
-    ok: hb.get() == 'd'
-    ok: hb.get() == 'd'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'c'
-    ok: hb.get() == 'c'
-    ok: hb.has_back() == true
-    ok: hb.has_frwd() == true
-      : hb.push( 'e' )
-    ok: hb.has_frwd() == false
-    ok: hb.get() == 'e'
-      : hb.push( 'f' )
-    ok: hb.has_frwd() == false
-    ok: hb.get() == 'f'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'e'
-      : hb.go_back()
-    ok: hb.get() == 'c'
-    ok: hb.has_back()
-      : hb.go_back()
-    ok: hb.get() == 'b'
-    ok: ! hb.has_back()
-    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+Tests run on Sat Jul 29 11:43:01 2017
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -339,6 +143,186 @@ Tests run on Fri Jul 28 16:08:23 2017
     ok: cla
     ok: cla.ensure( 1 ) == false
     ok: cla.empty()
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    HistoryBuffer [test-history-buffer.cpp:40]
+    ==========================================
+      #### Ensure copy construct and assignment is OK ####
+      #### Single character operation - Add then rewind ####
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+    ok: hb.has_back() == false
+    ok: ! hb.has_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      #### Two character operation - Add then rewind ####
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'b'
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      #### Two character operation with frwd move ####
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'b'
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+    ok: hb.has_frwd() == true
+      : hb.go_frwd()
+    ok: hb.get() == 'b'
+    ok: hb.has_frwd() == false
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      #### Two character operation with third added after go_back() ####
+      : HistoryBuffer<char> hb( 4 )
+    ok: ! hb.has_back()
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'b'
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+    ok: hb.has_frwd() == true
+      : hb.push( 'c' )
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'c'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      #### Four character operation - Buffer filled but not wrapped - Add then rewind ####
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'b'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'a'
+    ok: ! hb.has_back()
+      #### Six character operation - More than can fit in buffer ####
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+      : hb.push( 'e' )
+      : hb.push( 'f' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: ! hb.has_back()
+      #### Six character operation with more added after go_back() ####
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+      : hb.push( 'e' )
+      : hb.push( 'f' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'g' )
+    ok: hb.get() == 'g'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'h' )
+      : hb.push( 'i' )
+    ok: hb.get() == 'i'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'h'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: ! hb.has_back()
+      #### Buffer wrapped many times operation - includes push() after go_back() ####
+      : HistoryBuffer<char> hb( 4 )
+      : hb.push( 'a' )
+      : hb.push( 'b' )
+      : hb.push( 'c' )
+      : hb.push( 'd' )
+      : hb.push( 'e' )
+      : hb.push( 'f' )
+    ok: hb.has_back() == true
+    ok: hb.has_back()
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'g' )
+    ok: hb.get() == 'g'
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'g'
+    ok: hb.has_back()
+      : hb.go_back()
+      : hb.push( 'h' )
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'h'
+      : hb.push( 'i' )
+    ok: hb.has_frwd() == false
+    ok: hb.get() == 'i'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'h'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
+    ok: ! hb.has_back()
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
     iterator_range [test-iterator-range.cpp:43]
@@ -693,4 +677,4 @@ Tests run on Fri Jul 28 16:08:23 2017
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 498 test(s)
+0 error(s), 0 todo(s), 484 test(s)
