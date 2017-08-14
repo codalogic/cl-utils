@@ -47,7 +47,7 @@
 
 namespace clutils {
 
-template< typename T >
+template< typename T, size_t S >
 class HistoryBuffer
 {
 private:
@@ -60,9 +60,9 @@ private:
     } m;
 
 public:
-    HistoryBuffer( size_t buffer_size )
+    HistoryBuffer()
     {
-        m.buffer.reserve( buffer_size + 1 );    // We use an extra place, so when the buffer has buffer_size members we can tell if it's full or empty
+        m.buffer.reserve( S + 1 );    // We use an extra place, so when the buffer has buffer_size members we can tell if it's full or empty
     }
     void push( const T & v )
     {

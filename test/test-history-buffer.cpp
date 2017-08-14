@@ -39,16 +39,17 @@ using namespace clutils;
 
 TFEATURE( "HistoryBuffer" )
 {
+    typedef HistoryBuffer<char, 4> t_HistoryBufferChar4;
     {
     TDOC( "Ensure copy construct and assignment is OK" );
-    HistoryBuffer<char> hb( 4 );
-    HistoryBuffer<char> hb_copy( hb );
-    HistoryBuffer<char> hb_eq( 4 );
+    t_HistoryBufferChar4 hb;
+    t_HistoryBufferChar4 hb_copy( hb );
+    t_HistoryBufferChar4 hb_eq;
     hb_eq = hb;
     }
     {
     TDOC( "Single character operation - Add then rewind" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TTEST( ! hb.has_back() );
     TSETUP( hb.push( 'a' ) );
     TTEST( hb.has_back() == false );
@@ -58,7 +59,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Two character operation - Add then rewind" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TTEST( ! hb.has_back() );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
@@ -73,7 +74,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Two character operation with frwd move" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TTEST( ! hb.has_back() );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
@@ -96,7 +97,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Two character operation with third added after go_back()" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TTEST( ! hb.has_back() );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
@@ -119,7 +120,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Four character operation - Buffer filled but not wrapped - Add then rewind" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
     TSETUP( hb.push( 'c' ) );
@@ -139,7 +140,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Six character operation - More than can fit in buffer" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
     TSETUP( hb.push( 'c' ) );
@@ -161,7 +162,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Six character operation with more added after go_back()" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
     TSETUP( hb.push( 'c' ) );
@@ -195,7 +196,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "Buffer wrapped many times operation - includes push() after go_back()" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     for( size_t i=0; i<20; ++i )
         hb.push( 'A' + i );
     TSETUP( hb.push( 'a' ) );
@@ -236,7 +237,7 @@ TFEATURE( "HistoryBuffer" )
     }
     {
     TDOC( "clear() method" );
-    TSETUP( HistoryBuffer<char> hb( 4 ) );
+    TSETUP( t_HistoryBufferChar4 hb );
     TSETUP( hb.push( 'a' ) );
     TSETUP( hb.push( 'b' ) );
     TSETUP( hb.push( 'c' ) );

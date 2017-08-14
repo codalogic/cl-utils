@@ -1,4 +1,4 @@
-Tests run on Sat Jul 29 11:55:02 2017
+Tests run on Mon Aug 14 18:50:56 2017
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -149,7 +149,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ==========================================
       #### Ensure copy construct and assignment is OK ####
       #### Single character operation - Add then rewind ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
     ok: ! hb.has_back()
       : hb.push( 'a' )
     ok: hb.has_back() == false
@@ -157,7 +157,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'a'
     ok: ! hb.has_back()
       #### Two character operation - Add then rewind ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
     ok: ! hb.has_back()
       : hb.push( 'a' )
       : hb.push( 'b' )
@@ -170,7 +170,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'a'
     ok: ! hb.has_back()
       #### Two character operation with frwd move ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
     ok: ! hb.has_back()
       : hb.push( 'a' )
       : hb.push( 'b' )
@@ -191,7 +191,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'a'
     ok: ! hb.has_back()
       #### Two character operation with third added after go_back() ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
     ok: ! hb.has_back()
       : hb.push( 'a' )
       : hb.push( 'b' )
@@ -212,7 +212,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'a'
     ok: ! hb.has_back()
       #### Four character operation - Buffer filled but not wrapped - Add then rewind ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
       : hb.push( 'a' )
       : hb.push( 'b' )
       : hb.push( 'c' )
@@ -230,7 +230,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'a'
     ok: ! hb.has_back()
       #### Six character operation - More than can fit in buffer ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
       : hb.push( 'a' )
       : hb.push( 'b' )
       : hb.push( 'c' )
@@ -250,7 +250,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'c'
     ok: ! hb.has_back()
       #### Six character operation with more added after go_back() ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
       : hb.push( 'a' )
       : hb.push( 'b' )
       : hb.push( 'c' )
@@ -282,7 +282,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'c'
     ok: ! hb.has_back()
       #### Buffer wrapped many times operation - includes push() after go_back() ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
       : hb.push( 'a' )
       : hb.push( 'b' )
       : hb.push( 'c' )
@@ -319,7 +319,7 @@ Tests run on Sat Jul 29 11:55:02 2017
     ok: hb.get() == 'c'
     ok: ! hb.has_back()
       #### clear() method ####
-      : HistoryBuffer<char> hb( 4 )
+      : t_HistoryBufferChar4 hb
       : hb.push( 'a' )
       : hb.push( 'b' )
       : hb.push( 'c' )
