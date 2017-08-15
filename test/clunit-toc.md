@@ -1,4 +1,4 @@
-Tests table of contents generated on Mon Aug 14 18:50:56 2017
+Tests table of contents generated on Tue Aug 15 13:52:02 2017
 
 # test-command-line-args.cpp
 | Description | Line |
@@ -8,7 +8,7 @@ Tests table of contents generated on Mon Aug 14 18:50:56 2017
 # test-history-buffer.cpp
 | Description | Line |
 |-------------|------|
-| HistoryBuffer | 40 |
+| HistoryBuffer | 70 |
 
 # test-iterator-range.cpp
 | Description | Line |

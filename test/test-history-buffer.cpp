@@ -37,6 +37,36 @@
 
 using namespace clutils;
 
+class TypeWithResource
+{
+private:
+    int * p_int;
+
+public:
+    TypeWithResource( int i )
+    {
+        p_int = new int(i);
+    }
+    TypeWithResource( const TypeWithResource & rhs )
+    {
+        p_int = new int(*(rhs.p_int));
+    }
+    TypeWithResource & operator = ( const TypeWithResource & rhs )
+    {
+        delete p_int;
+        p_int = new int(*(rhs.p_int));
+        return *this;
+    }
+    ~TypeWithResource()
+    {
+        delete p_int;
+    }
+    bool operator == ( int i ) const
+    {
+        return *p_int == i;
+    }
+};
+
 TFEATURE( "HistoryBuffer" )
 {
     typedef HistoryBuffer<char, 4> t_HistoryBufferChar4;
@@ -47,6 +77,7 @@ TFEATURE( "HistoryBuffer" )
     t_HistoryBufferChar4 hb_eq;
     hb_eq = hb;
     }
+
     {
     TDOC( "Single character operation - Add then rewind" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -57,6 +88,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'a' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Two character operation - Add then rewind" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -72,6 +104,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'a' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Two character operation with frwd move" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -95,6 +128,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'a' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Two character operation with third added after go_back()" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -118,6 +152,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'a' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Four character operation - Buffer filled but not wrapped - Add then rewind" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -138,6 +173,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'a' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Six character operation - More than can fit in buffer" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -160,6 +196,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'c' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Six character operation with more added after go_back()" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -194,6 +231,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'c' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "Buffer wrapped many times operation - includes push() after go_back()" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -235,6 +273,7 @@ TFEATURE( "HistoryBuffer" )
     TTEST( hb.get() == 'c' );
     TTEST( ! hb.has_back() );
     }
+
     {
     TDOC( "clear() method" );
     TSETUP( t_HistoryBufferChar4 hb );
@@ -269,6 +308,44 @@ TFEATURE( "HistoryBuffer" )
     TCRITICALTEST( hb.has_back() );
     TSETUP( hb.go_back() );
     TTEST( hb.get() == 'b' );
+    TTEST( ! hb.has_back() );
+    }
+
+    typedef HistoryBuffer<TypeWithResource, 4> t_HistoryBufferTypeWithResource4;
+    {
+    TDOC( "Check resource release with two element operation" );
+    TSETUP( t_HistoryBufferTypeWithResource4 hb );
+    TTEST( ! hb.has_back() );
+    TSETUP( hb.push( TypeWithResource( 1 ) ) );
+    TSETUP( hb.push( TypeWithResource( 2 ) ) );
+    TTEST( hb.has_back() == true );
+    TTEST( hb.get() == 2 );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 1 );
+    TTEST( ! hb.has_back() );
+    }
+
+    {
+    TDOC( "Six character operation - More than can fit in buffer" );
+    TSETUP( t_HistoryBufferTypeWithResource4 hb );
+    TSETUP( hb.push( TypeWithResource( 'a' ) ) );
+    TSETUP( hb.push( TypeWithResource( 'b' ) ) );
+    TSETUP( hb.push( TypeWithResource( 'c' ) ) );
+    TSETUP( hb.push( TypeWithResource( 'd' ) ) );
+    TSETUP( hb.push( TypeWithResource( 'e' ) ) );
+    TSETUP( hb.push( TypeWithResource( 'f' ) ) );
+    TTEST( hb.has_back() == true );
+    TTEST( hb.get() == 'f' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 'e' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 'd' );
+    TCRITICALTEST( hb.has_back() );
+    TSETUP( hb.go_back() );
+    TTEST( hb.get() == 'c' );
     TTEST( ! hb.has_back() );
     }
 }

@@ -1,4 +1,4 @@
-Tests run on Mon Aug 14 18:50:56 2017
+Tests run on Tue Aug 15 13:52:02 2017
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -145,7 +145,7 @@ Tests run on Mon Aug 14 18:50:56 2017
     ok: cla.empty()
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
-    HistoryBuffer [test-history-buffer.cpp:40]
+    HistoryBuffer [test-history-buffer.cpp:70]
     ==========================================
       #### Ensure copy construct and assignment is OK ####
       #### Single character operation - Add then rewind ####
@@ -349,6 +349,37 @@ Tests run on Mon Aug 14 18:50:56 2017
     ok: hb.has_back()
       : hb.go_back()
     ok: hb.get() == 'b'
+    ok: ! hb.has_back()
+      #### Check resource release with two element operation ####
+      : t_HistoryBufferTypeWithResource4 hb
+    ok: ! hb.has_back()
+      : hb.push( TypeWithResource( 1 ) )
+      : hb.push( TypeWithResource( 2 ) )
+    ok: hb.has_back() == true
+    ok: hb.get() == 2
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 1
+    ok: ! hb.has_back()
+      #### Six character operation - More than can fit in buffer ####
+      : t_HistoryBufferTypeWithResource4 hb
+      : hb.push( TypeWithResource( 'a' ) )
+      : hb.push( TypeWithResource( 'b' ) )
+      : hb.push( TypeWithResource( 'c' ) )
+      : hb.push( TypeWithResource( 'd' ) )
+      : hb.push( TypeWithResource( 'e' ) )
+      : hb.push( TypeWithResource( 'f' ) )
+    ok: hb.has_back() == true
+    ok: hb.get() == 'f'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'e'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'd'
+    ok: hb.has_back()
+      : hb.go_back()
+    ok: hb.get() == 'c'
     ok: ! hb.has_back()
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
@@ -704,4 +735,4 @@ Tests run on Mon Aug 14 18:50:56 2017
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 495 test(s)
+0 error(s), 0 todo(s), 510 test(s)
