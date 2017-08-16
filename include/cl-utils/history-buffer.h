@@ -43,6 +43,7 @@
 #define CL_UTILS__HISTORY_BUFFER
 
 #include <cassert>
+#include <cstddef>     // For size_t
 
 namespace clutils {
 

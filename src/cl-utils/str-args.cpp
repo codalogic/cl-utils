@@ -34,6 +34,7 @@
 #include "cl-utils/str-args.h"
 
 #include <cassert>
+#include <cstring>
 #include <algorithm>
 
 namespace clutils {
