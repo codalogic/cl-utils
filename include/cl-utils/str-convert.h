@@ -34,9 +34,9 @@
 #ifndef CLUTIL_CONVERT
 #define CLUTIL_CONVERT
 
+#include <sstream>
 #include <string>
 #include <iostream>
-#include <sstream>
 
 namespace clutils {
 
@@ -52,7 +52,8 @@ template<>
 bool from_string<bool>( const std::string & s )
 {
     std::string input;
-    std::istringstream( s ) >> input;
+    std::istringstream iss( s );
+    iss >> input;
     if( input == "0" || input == "false" || input == "False" || input == "FALSE" )
         return false;
     return true;
@@ -71,7 +72,8 @@ template<>
 bool from_string<bool>( bool & r_result, const std::string & s )
 {
     std::string input;
-    std::istringstream( s ) >> input;
+    std::istringstream iss( s );
+    iss >> input;
     if( input == "0" || input == "false" || input == "False" || input == "FALSE" )
     {
         r_result = false;
