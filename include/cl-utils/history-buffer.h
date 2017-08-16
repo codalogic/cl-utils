@@ -51,9 +51,8 @@ class HistoryBuffer
 {
 private:
     struct Members {
-        union {
-        T buffer[S+1];    // We use an extra place, so when the buffer has buffer_size members we can tell if it's full or empty
-        char blank; } store;
+        char buffer[(S+1)*sizeof(T)];    // Use char array instead of typed array to avoid need for T to have a default constructor
+                                         // Use an extra place, so when the buffer has buffer_size members we can tell if it's full or empty
         size_t n_buffer_slots_used;
         size_t top;     // top points to the next free location. i.e. one above the active top of the stack
         size_t pos;     // pos points to the next location. i.e. one above the active location
@@ -62,15 +61,16 @@ private:
     } m;
 
 public:
-    HistoryBuffer()
+    ~HistoryBuffer()
     {
+        clear();
     }
     void push( const T & v )
     {
         if( m.top == m.pos && m.n_buffer_slots_used < (S+1) )
-            new (&m.buffer[m.n_buffer_slots_used++]) T( v );
+            new (&buffer( m.n_buffer_slots_used++ )) T( v );
         else
-            m.buffer[m.pos] = v;
+            buffer( m.pos ) = v;
         m.top = m.pos = (m.pos + 1) % (S+1);
         if( m.pos == m.bottom )
             m.bottom = (m.bottom + 1) % (S+1);
@@ -98,16 +98,19 @@ public:
     {
         assert( m.pos != m.bottom );
         if( m.pos == 0 )    // Can't use modulo arithmetic when doing unsigned subtraction
-            return m.buffer[(S+1) - 1];
+            return buffer( (S+1) - 1 );
         else
-            return m.buffer[m.pos - 1];
+            return buffer( m.pos - 1 );
     }
     void clear()
     {
         for( size_t i=0; i<m.n_buffer_slots_used; ++i )
-            (&m.buffer[i])->~T();
+            (&buffer( i ))->~T();
         m = Members();
     }
+private:
+    T & buffer( size_t index ) { return *(T *)&(m.buffer[index*sizeof(T)]); }
+    const T & buffer( size_t index ) const { return *(const T *)&(m.buffer[index*sizeof(T)]); }
 };
 
 } // namespace clutils
