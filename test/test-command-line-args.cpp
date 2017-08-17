@@ -46,42 +46,42 @@ void fake_help()
     is_fake_help_run = true;
 }
 
-char * argv_none[] = {
-    "Prog name - unused"
+char * argv_none[] = {    // `char * []` is the type passed into main(), so test this compiles OK
+    const_cast<char *>("Prog name - unused")
     };
 
-char * argv_help[] = {
+const char * argv_help[] = {
     "Prog name - unused",
     "-?"
     };
 
-char * argv_file_names[] = {
+const char * argv_file_names[] = {
     "Prog name - unused",
     "my-file.txt",
     "my-other-file.txt"
     };
 
-char * argv_flag_and_single_file_name[] = {
+const char * argv_flag_and_single_file_name[] = {
     "Prog name - unused",
     "-o",
     "my-file.txt"
     };
 
-char * argv_flag_and_file_names[] = {
+const char * argv_flag_and_file_names[] = {
     "Prog name - unused",
     "-o",
     "my-file.txt",
     "my-other-file.txt"
     };
 
-char * argv_long_flag_and_file_names[] = {
+const char * argv_long_flag_and_file_names[] = {
     "Prog name - unused",
     "-output",
     "my-file.txt",
     "my-other-file.txt"
     };
 
-char * argv_double_dash_flag_and_file_names[] = {
+const char * argv_double_dash_flag_and_file_names[] = {
     "Prog name - unused",
     "--output",
     "my-file.txt",

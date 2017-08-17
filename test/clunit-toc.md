@@ -1,4 +1,4 @@
-Tests table of contents generated on Thu Aug 17 11:29:19 2017
+Tests table of contents generated on Thu Aug 17 11:53:02 2017
 
 # test-command-line-args.cpp
 | Description | Line |
