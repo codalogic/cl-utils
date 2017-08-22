@@ -1,4 +1,4 @@
-Tests run on Thu Aug 17 11:53:02 2017
+Tests run on Tue Aug 22 17:47:36 2017
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -361,7 +361,7 @@ Tests run on Thu Aug 17 11:53:02 2017
       : hb.go_back()
     ok: hb.get() == 1
     ok: ! hb.has_back()
-      #### Six character operation - More than can fit in buffer ####
+      #### Check resource release with six character operation - More than can fit in buffer ####
       : t_HistoryBufferTypeWithResource4 hb
       : hb.push( TypeWithResource( 'a' ) )
       : hb.push( TypeWithResource( 'b' ) )
@@ -381,6 +381,12 @@ Tests run on Thu Aug 17 11:53:02 2017
       : hb.go_back()
     ok: hb.get() == 'c'
     ok: ! hb.has_back()
+      #### Test copy with resource ####
+      : t_HistoryBufferTypeWithResource4 hb
+      : hb.push( TypeWithResource( 'a' ) )
+      : t_HistoryBufferTypeWithResource4 hb_copy( hb )
+      : t_HistoryBufferTypeWithResource4 hb_eq
+      : hb_eq = hb
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
 
     iterator_range [test-iterator-range.cpp:43]

@@ -327,7 +327,7 @@ TFEATURE( "HistoryBuffer" )
     }
 
     {
-    TDOC( "Six character operation - More than can fit in buffer" );
+    TDOC( "Check resource release with six character operation - More than can fit in buffer" );
     TSETUP( t_HistoryBufferTypeWithResource4 hb );
     TSETUP( hb.push( TypeWithResource( 'a' ) ) );
     TSETUP( hb.push( TypeWithResource( 'b' ) ) );
@@ -347,5 +347,18 @@ TFEATURE( "HistoryBuffer" )
     TSETUP( hb.go_back() );
     TTEST( hb.get() == 'c' );
     TTEST( ! hb.has_back() );
+    }
+
+    {
+    TDOC( "Test copy with resource" );
+    TSETUP( t_HistoryBufferTypeWithResource4 hb );
+    TSETUP( hb.push( TypeWithResource( 'a' ) ) );
+        {
+        TSETUP( t_HistoryBufferTypeWithResource4 hb_copy( hb ) );
+        }
+        {
+        TSETUP( t_HistoryBufferTypeWithResource4 hb_eq );
+        TSETUP( hb_eq = hb );
+        }
     }
 }
