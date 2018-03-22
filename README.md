@@ -93,6 +93,23 @@ For example:
 
     expand_append( &s, "File: %0, Line: %1", "my-file.txt", 10 );
 
+str_mk
+------
+`str_mk` is a simple class wrapper around `std::ostringstream` that has a cast
+operator to `std::string`.  This makes building strings easier.  Instead of:
+
+```c++
+    std::ostringstream oss;
+    oss << "Test" << 3;
+    std::string my_string = oss.str();
+```
+
+You can simply do:
+
+```c++
+    std::string my_string = str_make( "Test" ) << 3;
+```
+
 str_convert
 -----------
 

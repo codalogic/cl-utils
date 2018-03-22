@@ -1,4 +1,4 @@
-Tests run on Tue Aug 22 17:47:36 2017
+Tests run on Thu Mar 22 17:05:06 2018
 
     CommandLineArgs [test-command-line-args.cpp:92]
     ===============================================
@@ -740,5 +740,14 @@ Tests run on Tue Aug 22 17:47:36 2017
     ok: trim( &s ) == out
     ok: s == out
     ok: ! _CrtMemDifference( &s3, &s1, &s2 )
+
+    str-make [test-str-make.cpp:40]
+    ===============================
+    ok: my_string == "TestTime23.5truefalse"
+    ok: std::string( str_make( "Test" ) << 3 << 4.5 << true << false ) == "Test34.5truefalse"
+    ok: sm1.to_string() == "Test3.5Passtrue"
+    ok: sm2.to_string() == "Test3.5"
+    ok: sm2.to_string() == "Test3.5"
+    ok: ! _CrtMemDifference( &s3, &s1, &s2 )
     ok: _CrtCheckMemory() != 0
-0 error(s), 0 todo(s), 510 test(s)
+0 error(s), 0 todo(s), 516 test(s)

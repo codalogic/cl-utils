@@ -1,4 +1,4 @@
-Tests table of contents generated on Tue Aug 22 17:47:36 2017
+Tests table of contents generated on Thu Mar 22 17:05:06 2018
 
 # test-command-line-args.cpp
 | Description | Line |
@@ -50,3 +50,8 @@ Tests table of contents generated on Tue Aug 22 17:47:36 2017
 |-------------|------|
 | [lr]?trim - copy | 42 |
 | [lr]?trim - in-place | 87 |
+
+# test-str-make.cpp
+| Description | Line |
+|-------------|------|
+| str-make | 40 |

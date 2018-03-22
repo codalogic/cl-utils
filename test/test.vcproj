@@ -205,6 +205,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test-str-make.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test-str-trim.cpp"
 				>
 			</File>
